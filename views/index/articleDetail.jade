@@ -1,0 +1,48 @@
+extends ../layout
+
+block specialRef
+    script(src="/lib/marked/marked.min.js")
+    script(src="/javascripts/articleDetail.js")
+    link(rel="stylesheet" href="/stylesheets/articleDetail.css")
+
+block content
+    article(id="article")
+    div(id="drawer" class="drawer")
+        div(class="handle")
+            div(class="glyphicon glyphicon-align-justify")
+        div(id="outline")
+
+    script.
+        $("#article").on('click', function (e) {
+            $("#drawer").removeClass('drawer-open');
+            $("#drawer").addClass('drawer-close');
+        })
+
+        $(".handle").on('click', function (e) {
+            if ($("#drawer").hasClass("drawer-open")) {
+                $("#drawer").removeClass('drawer-open');
+                $("#drawer").addClass('drawer-close');
+            } else {
+                $("#drawer").removeClass('drawer-close');
+                $("#drawer").addClass('drawer-open');
+            }
+        });
+
+        $.ajax({
+            url: "/article/find",
+            type: "get",
+            async: true,
+            data: {no: "#{no}"},
+
+            dataType: "json",
+            success: function (doc) {
+                $("#article").html(marked(doc.content));
+                outline("article", "outline");
+            },
+            error: function (res) {
+                console.error("error occurred when getting article");
+                $("#article").html("<h1>找不到该文章</h1>");
+            },
+            complete: function () {
+            }
+        })

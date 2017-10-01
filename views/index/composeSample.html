@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="/stylesheets/markdownEditor.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="wrapper" class="row" style="height: 95vh;">
+    <div class="col-xs-6" style="height: 100%">
+        <div id="edit" class="editor-font editor" contenteditable="true"><div>start</div></div>
+    </div>
+    <div class="col-xs-6" style="height: 100%">
+        <div id="preview">preview</div>
+    </div>
+</div>
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/lib/marked/lib/marked.js"></script>
+<script src="/lib/highlightjs/highlight.pack.js"></script>
+<script src="/javascripts/markdownEditor/markdownEditor.js"></script>
+<script>
+    var controller = new Controller({
+//        pastePlainText : true
+    });
+    controller.init();
+
+    hljs.configure({
+        languages : ['Markdown']
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>count down</title>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/velocity.min.js"></script>
+    <link href="/surprise/css/velocity.css" rel="stylesheet">
+</head>
+<body>
+<div style="position: absolute; width: 100vw; height: 100vh;">
+
+    <span id="a" class="absolute">xxx</span>
+</div>
+
+<script>
+    var elem = $("#a");
+    elem.velocity({
+        scaleY: -1
+    },{
+        duration: 1000,
+        delay: 450
+    });
+    elem.text("hahah")
+</script>
+</body>
+</html>

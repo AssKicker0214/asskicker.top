@@ -1,0 +1,26 @@
+extends ../layout
+
+block specialRef
+    link(rel='stylesheet', href='/stylesheets/welcome.css')
+    script(src="/lib/titanic/titanic.min.js")
+    script(src="/lib/titanic/bodymovin.min.js")
+    script(src="https://unpkg.com/vue")
+
+block content
+    //include ../common/nav
+    video(autoplay loop='false' id='bg-video')
+        //source(src='/videos/got.mp4' type='video/mp4')
+    div(id="bg-wrapper")
+        .video-tile
+        .video-tile
+        .video-tile
+        .video-tile
+        .video-tile
+        .video-tile
+        .video-tile
+        .video-tile
+        .video-tile
+        #caption {{content}}
+
+
+    script(src='/javascripts/welcome.js')

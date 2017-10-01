@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  div(class='container')
+    form(method='get' action='/users/signup')
+      div(class='form-group')
+        label(for='name') name
+          input(id='name' name='name' class='form-control' placeholder='input name')
+      button(role='submit' class='btn btn-success') 注册

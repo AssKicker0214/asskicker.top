@@ -1,0 +1,64 @@
+extends ../layout
+
+block specialRef
+    link(href="/stylesheets/markdownEditor.css" rel="stylesheet")
+
+block content
+    include ./MdEditorComponent
+
+    script.
+        var no = $("#no").val();
+        $(document).ready(function () {
+            $.ajax({
+                url: "/article/find?no=" + no,
+                type: "get",
+                async: true,
+                dataType: "json",
+                success: function (doc) {
+                    $("#title").val(doc.title);
+                    $("#edit").focus();
+                    if(doc.keywords){
+                        doc.keywords.forEach(function (item) {
+                            tagBtn.addTag(item.keyword);
+                        });
+                    }
+                    document.execCommand("insertText", false, doc.content);
+                    controller.render();
+                },
+                complete: function (res) {
+                    console.log("get");
+                }
+            });
+        })
+
+        $("#save-btn").on('click', function () {
+            var content = controller.getPureTextFromEditor();
+            var title = $("#title").val();
+            var tags = [];
+            $(".tag").each(function (item) {
+                tags.push({keyword: $(this).text()});
+            })
+            //console.log(tags);
+            $("#save-btn").addClass("disabled");
+            $("#save-btn").text("正在保存...");
+            $.ajax({
+                url: "/article/save",
+                type: "post",
+                async: true,
+                data: {content: content, title: title, no: no, keywords: JSON.stringify(tags)},
+
+                dataType: "text",
+                success: function (res) {
+                    console.info("saved");
+                },
+                error: function (res) {
+                    console.error("error occurred when saving article");
+                    console.error(res);
+                },
+                complete: function () {
+                    $("#save-btn").removeClass("disabled");
+                    $("#save-btn").text("保存");
+                }
+
+            });
+        });

@@ -1,0 +1,91 @@
+@media screen and (max-width: 1200px){
+    .drawer{
+        position: fixed;
+        top: 0;
+        left: 90%;
+        width: 80vw;
+        height: 100vh;
+        background-color: transparent;
+        transition: all 0.5s ease 0s;
+        font-size: 2rem;
+        overflow-y: hidden;
+    }
+
+    .drawer-open{
+        left: 20%;
+    }
+
+    .drawer-close{
+        left: 90%
+    }
+
+    article{
+        font-size: 1.2rem;
+        width: 100vw;
+        padding: 10px 2%;
+    }
+
+    .handle{
+        width: 10vw;
+        text-align: center;
+        /*height: 100vh;*/
+        padding: 5vh 0;
+        position: absolute;
+        left: 0;
+        top: 40vh;
+        display: inline;
+        background-color: whitesmoke;
+    }
+
+    .handle div{
+        margin: 0 auto;
+    }
+
+    #outline{
+        width: 70vw;
+        height: 100vh;
+        position: absolute;
+        margin-left: 10vw;
+        display: inline-block;
+        overflow: scroll;
+        background-color: whitesmoke;
+    }
+
+    ol{
+        margin-bottom: 0;
+        padding-left: 25px;
+    }
+
+    #outline li{
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 1200px){
+    .handle{
+        display: none;
+    }
+
+    article {
+        width: 70%;
+        padding: 10px 2%;
+    }
+    .drawer{
+        padding-top: 20px;
+        overflow: scroll;
+        width: 30%;
+        border-left: groove;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+    }
+}
+
+ol li{
+   list-style: decimal;
+}
+
+ol{
+    border-left: solid lightgray 0.5px;
+}

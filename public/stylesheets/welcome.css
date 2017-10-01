@@ -1,0 +1,35 @@
+#bg-video{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto; height: auto; z-index: -100;
+
+}
+
+#bg-wrapper{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -50;
+    width: auto; height: auto;
+    /*background-color: var(--theme-color);*/
+}
+
+.video-tile{
+    float: left;
+    height: 33.333vh;
+    width: 33.333vw;
+    background-color: rgba(111,111,111,0.5);
+}
+
+#caption{
+    position: fixed;
+    top: 45vh;
+    text-align: center;
+    width: 100%;
+    font-size: 30px;
+}

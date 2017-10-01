@@ -1,0 +1,20 @@
+.article-panel{
+
+}
+
+.title:hover{
+    /*background-color: lightcoral;*/
+    /*cursor: pointer;*/
+}
+
+.title{
+    display: inline-block;
+}
+
+article h2{
+    display: inline-block;
+}
+
+article small{
+    display: inline-block;
+}

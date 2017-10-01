@@ -1,0 +1,126 @@
+form(class="tool")
+    input(id="title" autocomplete="off" placeholder="标题")
+    input(id="no" type="hidden" value="#{no}")
+    button(id="save-btn" type="button" class="btn btn-success") 保存
+    #tag-zoom
+        a(id="tag-btn" role="button" type="button" class="btn btn-xs btn-warning" data-trigger=" " data-placement="bottom" data-toggle="popover" title="输入或选择标签") 选择标签
+.row(id="wrapper")
+    .col-xs-6
+        div(id="edit" class="editor-font editor" contenteditable="true")
+    .col-xs-6
+        div(id="preview")
+
+//div(class="modal fade" id="tag-modal" tabindex="-1")
+//    div(class="modal-dialog" role="document")
+//        .modal-content
+//            .modal-header
+//<a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">可消失的弹出框</a>
+script(src="/lib/marked/lib/marked.js")
+script(src="/lib/highlightjs/highlight.pack.js")
+script(src="/javascripts/markdownEditor/markdownEditor.js")
+script.
+    // 初始化markdown编辑器
+    var controller = new Controller({
+        //        pastePlainText : true
+        editId: 'edit',
+        previewId: 'preview'
+    });
+    controller.init();
+
+    // 初始化标签
+    var tagBtn = $("#tag-btn");
+    tagBtn.mouseInTag = function (ele) {
+        if(tagBtn.state === "选择"){
+            $(ele).text("删除");
+            $(ele).removeClass("btn-primary");
+            $(ele).addClass("btn-danger");
+        }
+    }
+
+    tagBtn.mouseOutTag = function (ele) {
+        $(ele).text($(ele).attr("data-name"));
+        $(ele).removeClass("btn-danger");
+        $(ele).addClass("btn-primary");
+    }
+
+    tagBtn.onClickTag = function (ele) {
+        if(tagBtn.state === "选择"){
+            var tag = $(ele);
+            tag.remove();
+        }
+    };
+
+    tagBtn.onClickCandidate = function (ele) {
+        //e.preventDefault();
+        var btn = $(ele);
+        if (btn.hasClass("candidate-check")) {
+            btn.removeClass("candidate-check");
+        } else {
+            btn.addClass("candidate-check");
+            btn.remove();
+            tagBtn.addTag(btn.text());
+        }
+        btn.blur();
+    }
+
+    tagBtn.addTag = function(tagName){
+        $("#tag-zoom").prepend("<button onclick='tagBtn.onClickTag(this);' onmouseenter='tagBtn.mouseInTag(this);' onmouseout='tagBtn.mouseOutTag(this)' class='btn btn-xs btn-primary tag' type='button' data-name='" + tagName + "'>" + tagName + "</button>");
+    }
+
+    tagBtn.addCusTag = function () {
+        var inputValue = $('#tag-input').val();
+        inputValue = inputValue.replace(/\s/g, "");
+        if (inputValue) {
+            $("#tag-zoom").prepend("<button onclick='tagBtn.onClickTag(this);' class='btn btn-xs btn-primary tag' type='button'>" + inputValue + "</button>");
+            $("#tag-input").val("");
+        }
+    }
+    
+    tagBtn.state = "空闲";
+    tagBtn.on('click', function (e) {
+        if (tagBtn.state === "空闲") {
+            tagBtn.addClass("disabled");
+            tagBtn.text("正在生成");
+            $.ajax({
+                url: "/article/nlp/tfidf",
+                type: 'get',
+                async: true,
+                data: {no: $("#no").val(), top: 10},
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    tagBtn.state = "选择";
+                    tagBtn.candidateGroup = "";
+                    res.every(function (item, index) {
+                        if (index > 9) {
+                            return false;
+                        }
+                        tagBtn.candidateGroup += '<button type="button" onclick="tagBtn.onClickCandidate(this);" class="btn btn-sm candidate">' + item.term + '</button>';
+                        return true;
+                    })
+                    tagBtn.popoverHtml = '<div id="tag-input-group" class="input-group"><input id="tag-input" type="text" class="form-control" placeholder="输入..."><span class="input-group-btn"><button class="btn btn-default" type="button" onclick="tagBtn.addCusTag();"><span class="glyphicon glyphicon-plus"></span></button></span></div>'
+                    tagBtn.popoverHtml += tagBtn.candidateGroup;
+                    tagBtn.popover({
+                        content: tagBtn.popoverHtml,
+                        html: true
+                    });
+                    tagBtn.popover("show");
+                },
+                error: function (res) {
+                    tagBtn.state = "空闲";
+                    console.error("an error occurred when getting tag");
+                },
+                complete: function (res) {
+                    tagBtn.removeClass("disabled");
+                    tagBtn.text("完成");
+                }
+            });
+        } else if (tagBtn.state === "选择") {
+            tagBtn.popover("destroy");
+            tagBtn.text("选择标签");
+            tagBtn.state = "空闲";
+        }
+
+    })
+
+

@@ -1,0 +1,108 @@
+:root{
+    --tool-height: 70px;
+}
+.editor-line{
+    white-space: nowrap;
+}
+
+.editor-line:hover{
+    background-color: darkslategray;
+}
+
+
+.editor-font{
+    font-family: Consolas fantasy;
+    font-size: 14px;
+    color: whitesmoke;
+}
+
+.editor{
+    background-color: #3f3f3f;
+    overflow: scroll;
+    height: 100%;
+}
+
+#preview{
+    overflow: scroll;
+    height: 100%;
+}
+
+#wrapper{
+    height: calc(100vh - var(--tool-height));
+    margin-top: var(--tool-height);
+    margin-right: 0;
+    margin-left: 0;
+}
+
+#wrapper>.col-xs-6{
+    height: 100%;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.tool{
+    height: var(--tool-height);
+    /*line-height: var(--tool-height);*/
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #faf4ee;
+    padding: 5px 10px;
+    z-index: 500;
+}
+
+.tool input{
+    display: inline;
+    line-height: normal;
+}
+
+#title{
+    font-size: 3rem;
+    border: none;
+    background-color: transparent;
+    max-width: calc(100% - 100px);
+}
+
+#title:focus{
+    outline: none;
+    border-bottom: groove lightslategray 0.5px;
+
+}
+
+#save-btn{
+    float: right;
+    vertical-align: bottom;
+}
+
+.tag{
+    margin-right: 5px;
+    border: none;
+    /*border-radius: 0;*/
+}
+
+#tag-zoom{
+    margin-top: 5px;
+    /*display: inline-block;*/
+}
+
+#tag-btn{
+    /*float: right;*/
+}
+
+.candidate{
+    margin: 2px 5px 0 0;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.candidate:hover{
+    font-weight: bold;
+}
+
+.candidate-check{
+    color: white;
+    background-color: limegreen;
+}

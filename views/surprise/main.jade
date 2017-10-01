@@ -1,0 +1,32 @@
+doctype html
+html
+    head
+        title Happy Birthday and EveryDay
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(charset="utf8")
+
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
+        link(rel="stylesheet" type="text/css" href="/lib/page-transition/css/component.css")
+        link(rel="stylesheet" type="text/css" href="/lib/page-transition/css/animations.css")
+        script(src="/lib/page-transition/js/modernizr.custom.js")
+        script(src='/lib/jquery/dist/jquery.js')
+        script(src='/lib/bootstrap/dist/js/bootstrap.js')
+
+        link(rel="stylesheet" type="text/css" href="/surprise/css/first.css")
+    body
+        button(id='iterateEffects') next
+
+        #pt-main(class='pt-perspective')
+            include pages/first
+            div(class="pt-page pt-page-1")
+                h1
+                    span A collection of 页面切换效果
+            div(class="pt-page pt-page-2")
+                h1
+                    span A collection of 页面切换效果
+
+
+
+        script(src="/lib/page-transition/js/jquery.dlmenu.js")
+        script(src="/lib/page-transition/js/pagetransitions.js")
