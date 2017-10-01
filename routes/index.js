@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/welcome', function (req, res, next) {
-    res.render('index/welcome');
+    res.render('index/welcome', {content: "Welcome"});
 });
 
 router.get('/composeHtml', function (req, res, next) {
