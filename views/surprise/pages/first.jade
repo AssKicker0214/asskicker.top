@@ -1,5 +1,13 @@
 .pt-page
     script(src="/lib/particles.min.js")
+    audio(id="start-music" controls="controls" autoplay="autoplay")
+        source(src='/audios/HappyBirthday.mp3' type='audio/mpeg')
+    #wish-title
+        h1(class='wish-title' id='happy-birthday') Happy Birthday
+        h4(class='wish-title-sm' id='and') and
+            a(class="wish-title-more" id='iterateEffects') &nbsp;MORE&nbsp;
+        h1(class='wish-title' id='everyday') Everyday
+        #play-mobile ▶
     #particles-js
         //h1 生日快乐
 
@@ -7,3 +15,43 @@ script.
     particlesJS.load('particles-js', '/surprise/particles.json', function () {
         console.log('callback - particles.js config loaded');
     });
+    
+    $("#particles-js").one('click', function () {
+        $("#start-music")[0].play();
+        $("#play-mobile").velocity({
+            opacity: 0
+        }, {
+            duration: 1500,
+            complete: function () {
+                $("#play-mobile").hide();
+            }
+        })
+    })
+
+    $("#start-music").on('ended', function () {
+        console.info("music ended");
+        $("#iterateEffects").show(3000);
+        $("#happy-birthday").velocity({
+            opacity: 0,
+            top: "-5vh"
+        },{
+            duration: 3000,
+            easing: "swing"
+        });
+
+        $("#everyday").velocity({
+            opacity: 0,
+            bottom: "-5vh"
+        }, {
+            duration: 3000,
+            easing: "swing"
+        });
+
+        $("#iterateEffects").velocity({
+            opacity: 1
+        }, {
+            duration: 3000,
+            easing: "swing"
+        })
+    });
+

@@ -23,6 +23,14 @@ li {
     text-align: center;
 }
 
+@font-face {
+    font-family: asanine;
+    src: url('/fonts/english/asenine.regular.ttf');
+}
+
+.asenine-font{
+    font-family: asanine, sans-serif;
+}
 @media screen and (min-width: 20cm) {
     .nav {
         background-color: black;

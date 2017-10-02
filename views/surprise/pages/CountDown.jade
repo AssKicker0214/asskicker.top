@@ -1,0 +1,32 @@
+.pt-page
+    script(src="/surprise/time.js")
+
+    #timer
+        span(class='asenine-font big-date-font' id='year')
+        span(class='asenine-font big-date-font') .
+        span(class='asenine-font big-date-font' id='month')
+        span(class='asenine-font big-date-font') .
+        span(class='asenine-font big-date-font' id='date')
+        span(class='asenine-font big-date-font') &nbsp;
+        span(class='digit-font small-time-font' id='hour')
+        span(class='digit-font small-time-font') :
+        span(class='digit-font small-time-font' id='minute')
+        span(class='digit-font small-time-font') :
+        span(class='digit-font small-time-font' id='second')
+
+script.
+    var time = new Time('year', 'month', 'date', 'hour', 'minute', 'second');
+    var year = null;
+    var month = null;
+    var date = null;
+
+    function count() {
+        time.pass(100000, {year: 2017, month: 3, date: 18, hour: 12, minute: 24, second: 0}, false, function (res) {
+            if (res.year !== year || res.month !== month || res.date !== date) {
+                year = res.year;
+                month = res.month;
+                date = res.date;
+            }
+        });
+    }
+

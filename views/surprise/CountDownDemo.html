@@ -6,13 +6,28 @@
     <script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src="/lib/velocity.min.js"></script>
     <link href="/surprise/css/velocity.css" rel="stylesheet">
+    <script src="/lib/vue/vue.js"></script>
+    <script src="/surprise/time.js"></script>
 </head>
 <body>
-<div style="position: absolute; width: 100vw; height: 100vh;">
+<div style="position: absolute; width: 100vw; height: 100vh; visibility: hidden;">
 
     <span id="a" class="absolute">xxx</span>
-</div>
 
+</div>
+<div>
+    <span class="digit-font" id="year">{{value}}</span>
+    &nbsp;
+    <span class="digit-font" id="month">{{value}}</span>
+    &nbsp;
+    <span class="digit-font" id="date">{{value}}</span>
+    &nbsp;
+    <span class="digit-font" id="hour">{{value}}</span>
+    :
+    <span class="digit-font" id="minute">{{value}}</span>
+    :
+    <span class="digit-font" id="second">{{value}}</span>
+</div>
 <script>
     var elem = $("#a");
     elem.velocity({
@@ -22,6 +37,9 @@
         delay: 450
     });
     elem.text("hahah")
+
+    var time = new Time('year', 'month', 'date', 'hour', 'minute', 'second');
+    time.pass(100000, {year: 2017, month: 12, date:2, hour: 15, minute:24, second:0}, true);
 </script>
 </body>
 </html>
