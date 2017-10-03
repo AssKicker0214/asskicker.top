@@ -15,6 +15,26 @@ script.
     particlesJS.load('particles-js', '/surprise/particles.json', function () {
         console.log('callback - particles.js config loaded');
     });
+
+    $("#particles-js").velocity({
+        backgroundColor: "#963232"
+    },{duration: 10000, delay: 5000}).velocity({
+        backgroundColor: "#326432"
+    },{duration: 11000}).velocity({
+        backgroundColor: "#bc3cbd"
+    },{duration: 11000}).velocity({
+        backgroundColor: "#7063da"
+    },{duration: 11000}).velocity({
+        backgroundColor: "#478c70"
+    },{duration: 11000}).velocity({
+        backgroundColor: "#946134"
+    }, {duration: 11000}).velocity({
+        backgroundColor: "#682798"
+    }, {duration: 11000}).velocity({
+        backgroundColor: "#2e8a7e"
+    }, {duration: 11000}).velocity({
+        backgroundColor: "#924479"
+    },{duration: 11000, loop: true});
     
     $("#particles-js").one('click', function () {
         $("#start-music")[0].play();
@@ -52,6 +72,9 @@ script.
         }, {
             duration: 3000,
             easing: "swing"
+        });
+        $("#iterateEffects").one('click', function () {
+            $("#particles-js").velocity("stop");
         })
     });
 
