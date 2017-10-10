@@ -1,5 +1,4 @@
-.pt-page
-    script(src="/surprise/time.js")
+.pt-page.count-down-page
 
     #timer
         span(class='asenine-font big-date-font' id='year')
@@ -14,19 +13,15 @@
         span(class='digit-font small-time-font') :
         span(class='digit-font small-time-font' id='second')
 
-script.
-    var time = new Time('year', 'month', 'date', 'hour', 'minute', 'second');
-    var year = null;
-    var month = null;
-    var date = null;
+    .big-date-font(style="visibility: hidden") space
+    .panel.left-panel.row
+        .col-xs-4
+            .digit-font.xs-time-font 2017-10-10 23:23:23
+            hr
+            .cursive-font 第一次说“我爱你”索拉卡的激发了三大块积分啊算了看到房价拉萨扩大飞机啊是亮点阿斯利康的分解落实到附件
+        .col-xs-8.first-of-what
+            span 我第一次叫你“李兔倩”对你说啦啦啦
 
-    function count() {
-        time.pass(100000, {year: 2017, month: 3, date: 18, hour: 12, minute: 24, second: 0}, false, function (res) {
-            if (res.year !== year || res.month !== month || res.date !== date) {
-                year = res.year;
-                month = res.month;
-                date = res.date;
-            }
-        });
-    }
+script.
+
 

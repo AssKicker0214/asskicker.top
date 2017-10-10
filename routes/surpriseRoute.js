@@ -13,4 +13,8 @@ router.get('/vdemo', function (req, res, next) {
     res.sendfile('views/surprise/CountDownDemo.html');
 });
 
+router.get('/ielts', function (req, res) {
+    res.sendfile('views/surprise/ielts-chart.html');
+
+});
 module.exports = router;

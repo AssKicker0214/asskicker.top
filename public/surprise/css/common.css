@@ -13,8 +13,12 @@
     font-size: 3vw;
 }
 
+.xs-time-font{
+    font-size: 2vw;
+}
+
 .big-date-font{
-    font-size: 6vw;
+    font-size: 8vw;
 }
 
 /*first.jade*/
@@ -81,8 +85,48 @@
     /*pointer-events: none;*/
 }
 
+/*count down page*/
+.count-down-page{
+    color: floralwhite;
+    background-color: black;
+}
 
+hr{
+    margin: 2px 0;
+}
 
+#timer{
+    background-color: #dd666c;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    padding-left: 20%;
+}
+
+.panel{
+    background-color: #483e3e;
+    padding: 10px 20px;
+}
+
+.left-panel{
+    float: left;
+}
+
+.right-panel{
+    float: right;
+}
+
+.first-of-what{
+    height: 100%;
+    padding: 2vw 0;
+    font-size: 2vw;
+    text-align: center;
+}
+
+.cursive-font{
+    font-family: cursive;
+    font-style: oblique;
+}
 @media screen and (max-width: 1359px) {
     #play-mobile{
         /*border-radius: 50%;*/
