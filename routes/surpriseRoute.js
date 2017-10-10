@@ -14,7 +14,7 @@ router.get('/vdemo', function (req, res, next) {
 });
 
 router.get('/ielts', function (req, res) {
-    res.sendfile(express().get('views')+'/surprise/ielts-chart.html');
+    res.render('surprise/ielts-chart');
 
 });
 module.exports = router;

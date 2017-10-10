@@ -1,0 +1,82 @@
+doctype html
+html
+    head
+        title History Results
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
+        script(src='https://cdn.bootcss.com/echarts/3.7.2/echarts-en.js')
+    body
+        #my-chart(style="width: 100%; height: 100vh")
+        script.
+            var dataAxis = ['8-24', '8-25', '8-26', '8-28', '8-29', '8-31', '9-1', '9-4', '9-5', '9-6', '9-7', '9-8', '9-11', '9-13', '9-14', '9-16', '9-17', '9-18', '9-20', '9-21', '9-23', '9-24', '9-26', '9-27', '9-29', '10-3', '10-4', '10-6', '10-8'];
+            var dataComprehension = [7, 6.5, 7, 6, 8, 7.5, 7, NaN, 7, NaN, 7.5, 6.5, 6.5, 7, 7.5, 7, 7, 7, 7.5, 7, 6.5, 7, 6.5, 7, 7.5, 6.5, 7.5, 6.5, 6.5];
+            var dataHearing = [7.5, NaN, 7, NaN, NaN, NaN, 7, 8, NaN, 7.5, 7.5, 7.5, 6.5, 7, 7, 7.5, 7.5, 7, 7, 7.5, 7, 7, 8, 7.5, 7.5, 6.5, 7, 6.5, 7];
+            var yMax = 10;
+            var dataShadow = [];
+
+            //    for (var i = 0; i < dataAxis.length; i++) {
+            //        dataShadow.push(yMax);
+            //    }
+
+            var option = {
+                title: {
+                    text: '历史成绩',
+                    subtext: ''
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                xAxis: {
+                    data: dataAxis,
+                    type: 'category'
+                },
+                yAxis: {
+                    type: 'value',
+                    min: 4,
+                    scale: 0.5
+                },
+                dataZoom: [
+                    {
+                        type: 'inside'
+                    }
+                ],
+                series: [
+                    //            { // For shadow
+                    //                type: 'bar',
+                    //                itemStyle: {
+                    //                    normal: {color: 'rgba(0,0,0,0.05)'}
+                    //                },
+                    //                barGap: '-100%',
+                    //                barCategoryGap: '40%',
+                    //                data: dataShadow,
+                    //                animation: false
+                    //            },
+                    {
+                        type: 'bar',
+                        name: '阅读',
+                        data: dataComprehension
+                    },
+                    {
+                        type: 'bar',
+                        name: '听力',
+                        data: dataHearing
+                    }
+                ]
+            };
+
+            var myChart = echarts.init(document.getElementById('my-chart'))
+            myChart.setOption(option)
+
+            // Enable data zoom when user click bar.
+            //    var zoomSize = 6;
+            //    myChart.on('click', function (params) {
+            //        console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+            //        myChart.dispatchAction({
+            //            type: 'dataZoom',
+            //            startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+            //            endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+            //        });
+            //    });
