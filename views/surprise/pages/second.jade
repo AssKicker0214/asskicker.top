@@ -1,0 +1,28 @@
+.pt-page
+    .container
+        h1(class='center hidden' id='second-1') I MISS YOU
+        h1(class='center hidden' id='second-2') MORE THAN I CAN SAY
+        h1(class='center hidden' id='second-3') &nbsp;
+        h1(class='center hidden' id='second-4') I LOVE YOU
+        h1(class='center hidden' id='second-5') MORE THAN YOU EVER
+            a(class="iterateEffects" id='_iterateEffects' role='button') &nbsp;KNOW&nbsp;
+
+script.
+    function startSecond() {
+        setTimeout(function () {
+            $("#second-1").removeClass('hidden')
+            $("#second-1").addClass('pt-page-moveFromRight');
+            setTimeout(function () {
+                $("#second-2").removeClass('hidden')
+                $("#second-2").addClass('pt-page-moveFromLeft');
+                setTimeout(function () {
+                    $("#second-4").removeClass('hidden')
+                    $("#second-4").addClass('pt-page-moveFromRight');
+                    setTimeout(function () {
+                        $("#second-5").removeClass('hidden')
+                        $("#second-5").addClass('pt-page-moveFromLeft')
+                    })
+                }, 200)
+            }, 200)
+        }, 0)
+    }

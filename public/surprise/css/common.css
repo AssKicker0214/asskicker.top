@@ -2,7 +2,13 @@
     font-family: digit;
     src: url("/fonts/digit/Let'sGoDigitalRegular.ttf");
 }
+.center{
+    text-align: center;
+}
 
+.hidden{
+    visibility: hidden;
+}
 .digit-font{
     font-family: digit, serif;
     font-size: 6vw;

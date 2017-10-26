@@ -16,16 +16,20 @@ html
 
         link(rel="stylesheet" type="text/css" href="/surprise/css/first.css")
         link(rel="stylesheet" type="text/css" href="/surprise/css/common.css")
-        script(src="/surprise/time.js")
+        //script(src="/surprise/time.js")
     body
         //button(id='iterateEffects') next
 
         #pt-main(class='pt-perspective')
-            //include pages/first
-            include pages/CountDown
+            include pages/first
+            include pages/second
+            include pages/third
+            include pages/forth
+            //include pages/CountDown
             div(class="pt-page pt-page-1")
                 h1
-                    span A collection of 页面切换效果
+                    .pt-page-rotateCarouselLeftIn
+                        span A collection of 页面切换效果
             div(class="pt-page pt-page-2")
                 h1
                     span A collection of 页面切换效果
@@ -35,28 +39,28 @@ html
         script(src="/lib/page-transition/js/jquery.dlmenu.js")
         script(src="/lib/page-transition/js/pagetransitions.js")
         script.
-            var time = new Time('year', 'month', 'date', 'hour', 'minute', 'second');
-            var year = null;
-            var month = null;
-            var date = null;
-
-            function count() {
-                console.info("counting");
-                time.pass(100000, {
-                    year: 2016,
-                    month: 3,
-                    date: 18,
-                    hour: 12,
-                    minute: 24,
-                    second: 0
-                }, false, function (res) {
-                    if (res.year !== year || res.month !== month || res.date !== date) {
-                        year = res.year;
-                        month = res.month;
-                        date = res.date;
-                    }
-                });
-            }
+            //var time = new Time('year', 'month', 'date', 'hour', 'minute', 'second');
+            //var year = null;
+            //var month = null;
+            //var date = null;
+            //
+            //function count() {
+            //    console.info("counting");
+            //    time.pass(100000, {
+            //        year: 2016,
+            //        month: 3,
+            //        date: 18,
+            //        hour: 12,
+            //        minute: 24,
+            //        second: 0
+            //    }, false, function (res) {
+            //        if (res.year !== year || res.month !== month || res.date !== date) {
+            //            year = res.year;
+            //            month = res.month;
+            //            date = res.date;
+            //        }
+            //    });
+            //}
 
             // debug
 
@@ -123,7 +127,9 @@ html
                 });
                 $("#iterateEffects").one('click', function () {
                     $("#particles-js").velocity("stop");
-                    setTimeout(count, 1000);
+                    startSecond();
+                    //$("#iterateEffects").removeAttr("id")
+                    //setTimeout(count, 1000);
                 })
             });
 
