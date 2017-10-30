@@ -144,7 +144,7 @@ hr{
     font-family: cursive;
     font-style: oblique;
 }
-@media screen and (max-width: 1359px) {
+@media screen and (max-width: 48em) {
     #play-mobile{
         /*border-radius: 50%;*/
         color: whitesmoke;
@@ -161,7 +161,15 @@ hr{
         /*display: inline;*/
     }
 
+    h1{
+        font-size: 7vw;
+    }
+
+    h2{
+        font-size: 6vw;
+    }
+
     #start-music{
-        display: none;
+        /*display: none;*/
     }
 }
