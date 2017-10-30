@@ -9,6 +9,17 @@
 .hidden{
     visibility: hidden;
 }
+
+.pt-page{
+    overflow-y: auto;
+}
+
+.container{
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+}
+
 .digit-font{
     font-family: digit, serif;
     font-size: 6vw;

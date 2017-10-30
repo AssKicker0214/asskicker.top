@@ -1,0 +1,17 @@
+.pt-page(style="background-color: burlywood")
+    .container
+        h2(class='center') IT HAS BEEN
+        h1(class='center digit-font' id='days-passed')
+        h2(class='center') GREAT DAYS,
+        h2(class='center') SINCE EVERYTHING BEGAN
+        // since everything began
+        h2 &nbsp;
+        h1(class='center') AND COUNTING
+
+    script.
+        setInterval(function () {
+            var currentDate = new Date();
+            var beginDate = new Date(2016, 3, 18)
+            var diff = parseInt((currentDate-beginDate)/(1000*3600*24), 10)
+            $("#days-passed").text(diff)
+        }, 1000)
