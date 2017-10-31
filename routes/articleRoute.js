@@ -8,9 +8,12 @@ let nlp = new NLP();
 /* GET home page. */
 router.post('/save', function(req, res, next) {
     let args = req.body;
-    console.log("#########");
-    console.log(JSON.parse(args.keywords));
-    articleModel.save(args.no, args.title, args.content,JSON.parse(args.keywords), args.createTime, function (saveTime) {
+    console.log(args);
+    let keywords = {};
+    if(args.keywords){
+        keywords = JSON.parse(args.keywords);
+    }
+    articleModel.save(args.no, args.title, args.content, keywords, args.createTime, function (saveTime) {
       res.send("saved");
   });
 });
@@ -54,6 +57,7 @@ router.get('/find', function (req, res, next) {
 
 router.get('/nlp/tfidf', function (req, res) {
     let targetNo = req.query.no;
+    // console.log(targetNo);
     let segmentsArray = [];
 
     let targetIndex = 0;
@@ -68,7 +72,11 @@ router.get('/nlp/tfidf', function (req, res) {
             }
             segmentsArray.push(segments);
         }
-        let tfidfs = nlp.getTfidf(targetIndex, segmentsArray);
+
+        let tfidfs = [];
+        if(targetIndex !== 0){
+            tfidfs = nlp.getTfidf(targetIndex, segmentsArray);
+        }
         res.send(tfidfs);
     });
 });

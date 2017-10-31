@@ -24,7 +24,7 @@ block content
             var no = $("#no").val();
             $("#save-btn").addClass("disabled");
             $("#save-btn").text("正在保存...");
-            console.log(JSON.stringify(createTime));
+            console.log("创建时间:"+JSON.stringify(createTime));
             $.ajax({
                 url: "/article/save",
                 type: "post",

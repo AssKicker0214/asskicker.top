@@ -39,19 +39,21 @@ class ArticleModel {
     }
 
     save(no, title, content, keywords, createTime, saveCallback) {
+        console.log("saving");
         let newData = {
             content: content,
             updateTime: new TimeUtl().getCurrentTimeJson(),
             title: title,
             keywords: keywords
         };
+        console.info("saving...\n" + JSON.stringify(newData));
+
         if (createTime) {
             newData.createTime = JSON.parse(createTime);
         } else {
             console.info("=========no createTime" + createTime);
         }
 
-        console.info("saving...\n" + JSON.stringify(newData));
         this.Article.findOneAndUpdate({no: no}, newData, {upsert: true}, function (err, doc) {
             if (err) {
                 console.error(err);

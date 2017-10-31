@@ -79,8 +79,11 @@ script.
     tagBtn.state = "空闲";
     tagBtn.on('click', function (e) {
         if (tagBtn.state === "空闲") {
+            // 模拟保存按钮点击
+            $("#save-btn").trigger("click");
             tagBtn.addClass("disabled");
             tagBtn.text("正在生成");
+            console.log("文章号："+$("#no").val())
             $.ajax({
                 url: "/article/nlp/tfidf",
                 type: 'get',
@@ -121,6 +124,8 @@ script.
             tagBtn.state = "空闲";
         }
 
-    })
+    });
+
+    $(function () { $("[data-toggle='tooltip']").tooltip(); });
 
 
