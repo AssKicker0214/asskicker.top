@@ -5,23 +5,16 @@ let connectDB = require('./database');
 let mongoose = require('mongoose');
 let TimeUtl = require('./timeUtl');
 
-class ArticleModel {
+class ArticleSetModel {
     // db
     // Article
 
     constructor() {
         this.db = connectDB('app');
 
-        let articleSchema = mongoose.Schema({
+        let articleSetSchema = mongoose.Schema({
             no: Number,
-            createTime: {
-                year: Number,
-                month: Number,
-                date: Number,
-                hour: Number,
-                minute: Number,
-                second: Number
-            },
+            createTime: Number,
             updateTime: {
                 year: Number,
                 month: Number,
@@ -30,31 +23,30 @@ class ArticleModel {
                 minute: Number,
                 second: Number
             },
-            title: String,
-            content: String,
-            keywords: [{keyword: String}]
+            name: String,
+            description: String,
+            articles: [{articleNo: Number}]
         });
 
-        this.Article = this.db.model('Article', articleSchema, 'articles');
+        this.ArticleSet = this.db.model('ArticleSet', articleSetSchema, 'articleSets');
     }
 
-    save(no, title, content, keywords, createTime, saveCallback) {
-        console.log("saving");
+    save(no, name, description, articles, createTime, saveCallback) {
         let newData = {
-            content: content,
+            name: name,
+            description: description,
             updateTime: new TimeUtl().getCurrentTimeJson(),
-            title: title,
-            keywords: keywords
+            articles: articles
         };
-        console.info("saving...\n" + JSON.stringify(newData));
+        console.info("article set saving...\n" + JSON.stringify(newData));
 
         if (createTime) {
-            newData.createTime = JSON.parse(createTime);
+            newData.createTime = createTime;
         } else {
-            console.info("=========no createTime" + createTime);
+            console.info("no createTime" + createTime);
         }
 
-        this.Article.findOneAndUpdate({no: no}, newData, {upsert: true}, function (err, doc) {
+        this.ArticleSet.findOneAndUpdate({no: no}, newData, {upsert: true}, function (err, doc) {
             if (err) {
                 console.error(err);
             } else {
@@ -63,8 +55,8 @@ class ArticleModel {
         })
     }
 
-    precreate(author, queryCallback) {
-        this.Article.find({}, {no: 1}, function (err, docs) {
+    precreate(queryCallback) {
+        this.ArticleSet.find({}, {no: 1}, function (err, docs) {
             let max = 0;
             if (docs) {
                 docs.forEach(function (val, index, array) {
@@ -77,24 +69,25 @@ class ArticleModel {
         });
     }
 
-    list(author, queryCallback) {
-        this.Article.find({}, {'_id': 0}, function (err, docs) {
+    list(queryCallback) {
+        this.ArticleSet.find({}, {'_id': 0}, function (err, docs) {
             if (docs) {
-                let articles = [];
+                let articleSets = [];
                 docs.forEach(function (doc, index, array) {
                     let timeUtl = new TimeUtl();
-                    let createAgo = timeUtl.dayToNow(doc.createTime);
-                    let updateAgo = timeUtl.dayToNow(doc.updateTime);
-                    let article = {
+                    // let createAgo = timeUtl.dayToNow(doc.createTime);
+                    // let updateAgo = timeUtl.dayToNow(doc.updateTime);
+                    let articleSet = {
                         no: doc.no,
-                        title: doc.title,
-                        content: doc.content,
-                        createAgo: createAgo,
-                        updateAgo: updateAgo
+                        name: doc.name,
+                        description: doc.description,
+                        articles: doc.articles
+                        // createAgo: createAgo,
+                        // updateAgo: updateAgo
                     };
-                    articles.push(article);
+                    articleSets.push(articleSet);
                 });
-                queryCallback(articles);
+                queryCallback(articleSets);
             } else {
                 queryCallback();
             }
@@ -103,7 +96,7 @@ class ArticleModel {
     }
 
     listContents(queryCallback){
-        this.Article.find({}, {'_id': 0, 'no': 1, 'title': 1, 'content':1, 'keywords': 1}, function (err, docs) {
+        this.ArticleSet.find({}, {'_id': 0, 'no': 1, 'title': 1, 'content':1}, function (err, docs) {
             if (docs) {
                 let articles = [];
                 docs.forEach(function (doc, index, array) {
@@ -111,7 +104,6 @@ class ArticleModel {
                         no: doc.no,
                         title: doc.title,
                         content: doc.content,
-                        keywords: doc.keywords
                     };
                     articles.push(article);
                 });
@@ -125,11 +117,11 @@ class ArticleModel {
 
     // handleEscape: 是否将\转义
     find(no, queryCallback){
-        this.Article.findOne({no:no}, {_id:0}, function (err, doc) {
-            queryCallback(doc);
-        })
+        // this.Article.findOne({no:no}, {_id:0}, function (err, doc) {
+        //     queryCallback(doc);
+        // })
     }
 
 }
 
-module.exports = ArticleModel;
+module.exports = ArticleSetModel;

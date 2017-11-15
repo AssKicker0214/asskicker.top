@@ -34,7 +34,7 @@ router.get('/list', function (req, res, next) {
             // res.send(JSON.stringify(list));
             res.render("index/articleList", {list: list});
         }else{
-            console.info("+++++++++++++")
+            console.info("")
         }
     })
 });
@@ -80,5 +80,6 @@ router.get('/nlp/tfidf', function (req, res) {
         res.send(tfidfs);
     });
 });
+
 
 module.exports = router;
