@@ -20,19 +20,19 @@ router.post('/save', function(req, res, next) {
 
 router.get('/create', function (req, res, next) {
     articleModel.precreate(null, function (no) {
-        res.render('index/compose', {no: no});
+        res.render('article/compose', {no: no});
     });
 });
 
 router.get('/edit', function (req, res, next) {
-    res.render('index/articleEdit', {no: req.query.no, title: '修改文章'})
+    res.render('article/articleEdit', {no: req.query.no, title: '修改文章'})
 });
 
 router.get('/list', function (req, res, next) {
     articleModel.list(null, function (list) {
         if(list){
             // res.send(JSON.stringify(list));
-            res.render("index/articleList", {list: list});
+            res.render("article/articleList", {list: list});
         }else{
             console.info("")
         }
@@ -40,7 +40,7 @@ router.get('/list', function (req, res, next) {
 });
 
 router.get('/detail', function (req, res, next) {
-    res.render("index/articleDetail", {no: req.query.no})
+    res.render("article/articleDetail", {no: req.query.no})
 
 });
 
