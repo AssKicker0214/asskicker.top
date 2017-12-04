@@ -7,3 +7,6 @@ var caption = new Vue({
         content: 'Welcome'
     }
 });
+
+// nav is imported from navigation.js
+nav.Index = true;

@@ -20,6 +20,10 @@ class TimeUtl{
         }
     }
 
+    getCurrentTimeStamp(){
+        return this.currentTime.getTime();
+    }
+
     getCurrentTimeString(){
         return this.currentTime.toTimeString();
     }

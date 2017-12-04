@@ -1,0 +1,78 @@
+/*@font-face{*/
+    /*src: url("/fonts/icons/glyphicon/glyphicons-halflings-regular.eot");*/
+    /*src: url("/fonts/icons/glyphicon/glyphicons-halflings-regular.svg");*/
+    /*src: url("/fonts/icons/glyphicon/glyphicons-halflings-regular.ttf");*/
+    /*src: url("/fonts/icons/glyphicon/glyphicons-halflings-regular.woff");*/
+    /*src: url("/fonts/icons/glyphicon/glyphicons-halflings-regular.woff2");*/
+/*}*/
+
+body{
+    margin: 0;
+}
+
+.my-nav{
+    position: fixed;
+    width: 100vw;
+    font-family: "Microsoft YaHei UI Light", serif;
+    font-size: x-large;
+    z-index: 10;
+}
+
+.my-nav>ul{
+    margin: 0;
+    display: inline-block;
+}
+
+.my-nav>ul>li{
+    list-style: none;
+    float: left;
+    margin: 5px 1em;
+    padding: 0 2rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.my-nav>ul>li:hover{
+    font-weight: 800;
+}
+
+.my-nav>ul>.active{
+    border-bottom: black solid 5px;
+}
+
+.my-nav .big{
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.my-nav .small{
+    font-size: 14px;
+    display: block;
+    margin-top: -5px;
+}
+
+#like{
+    float: right;
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 2rem;
+    padding: .5rem 2rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px black;
+    /*font-size: medium;*/
+}
+.voted{
+    color: red;
+    cursor: default;
+}
+.unvoted{
+    background-color: #de3d3d;
+    color: whitesmoke;
+    font-weight: 800;
+    cursor: pointer;
+}
+#like-cnt{
+    /*color: black;*/
+    font-size: 14px;
+    text-align: center;
+}

@@ -3,7 +3,7 @@
  */
 let connectDB = require('./database');
 let mongoose = require('mongoose');
-let TimeUtl = require('./timeUtl');
+let TimeUtl = require('./utls/timeUtl');
 
 class ArticleSetModel {
     // db
