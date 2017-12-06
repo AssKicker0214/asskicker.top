@@ -1,31 +1,30 @@
 :root{
-    --timeline-blog-color: #5ab4ff;
+    --timeline-news-color: #1a6aad;
     --timeline-width: 100px;
     --dot-width: 20px;
     --triangle-top: 10px;
 }
 
-.blog-preview{
+.news-abstract{
     width: 100%;
     position: relative;
     overflow: hidden;
 }
 
-.blog-preview>.preview{
-    /*display: inline-block;*/
+.news-abstract>.abstract{
     position: relative;
     float: left;
     width: calc(100% - var(--timeline-width));
     margin-bottom: 20px;
-    /*left: var(--timeline-width);*/
+    color: whitesmoke;
 }
 
-.blog-preview>.preview>.triangle{
+.news-abstract>.abstract>.triangle{
     -webkit-transform:rotate(135deg);
     -moz-transform:rotate(135deg);
     -o-transform:rotate(135deg);
     transform:rotate(135deg);
-    background-color: var(--timeline-blog-color);
+    background-color: var(--timeline-news-color);
     width: 20px;
     height: 20px;
     position: relative;
@@ -35,11 +34,13 @@
     float: left;
 }
 
-.blog-preview>.preview>.detail{
+.news-abstract>.abstract>.detail{
     float: left;
     width: calc(100% - var(--timeline-width));
     min-height: 100px;
-    background-color: var(--timeline-blog-color);
+    background-color: var(--timeline-news-color);
+    padding: 5px 15px;
+    border-radius: 5px;
 }
 
 .time-line{
@@ -64,7 +65,7 @@
 
 .time-line>.line>.dot{
     border-radius: 50%;
-    background-color: var(--timeline-blog-color);
+    background-color: var(--timeline-news-color);
     position: absolute;
     height: var(--dot-width);
     width: var(--dot-width);
@@ -73,9 +74,9 @@
 
 .time-line>.line>.link{
     position: absolute;
-    left: 8px;
-    right: 8px;
-    background-color: rgba(0,0,0,.5);
+    left: 7px;
+    right: 7px;
+    background-color: rgba(122, 120, 183, 0.5);
     height: 100%;
     z-index: -2;
 }

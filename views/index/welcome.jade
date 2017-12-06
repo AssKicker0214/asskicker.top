@@ -2,7 +2,7 @@ extends ../layout
 
 block specialRef
     link(rel='stylesheet', href='/stylesheets/welcome.css')
-    link(rel='stylesheet', href='/stylesheets/VueComponents/BlogPreview.css')
+    link(rel='stylesheet', href='/stylesheets/VueComponents/NewsAbstract.css')
     //script(src="/lib/titanic/titanic.min.js")
     //script(src="/lib/titanic/bodymovin.min.js")
     //script(src="https://unpkg.com/vue")
@@ -31,17 +31,19 @@ block content
         .col-md-5
             #caption Constructing...
         .col-md-7
-            ul(id='blog-list')
-                li(:id="'blog-'+blog.id" v-for="blog in blogs" )
-                    blog-preview
+            ul(id='news-list')
+                li( v-for="news in newsList" )
+                    news-abstract(:data='news')
+                //li
+                //    news-abstract
 
 
 
 
-    script(src='/javascripts/VueComponents/BlogPreview.js')
+    script(src='/javascripts/VueComponents/NewsAbstract.js')
     script(src='/javascripts/welcome.js')
     script.
-        var list = new BlogPreviewFactory();
+        //var list = new NewsAbstractFactory();
         //list.getTest();
 
         particlesJS.load('particles-js', '/particles.json', function () {
