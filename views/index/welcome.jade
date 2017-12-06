@@ -2,9 +2,11 @@ extends ../layout
 
 block specialRef
     link(rel='stylesheet', href='/stylesheets/welcome.css')
-    script(src="/lib/titanic/titanic.min.js")
-    script(src="/lib/titanic/bodymovin.min.js")
-    script(src="https://unpkg.com/vue")
+    link(rel='stylesheet', href='/stylesheets/VueComponents/BlogPreview.css')
+    //script(src="/lib/titanic/titanic.min.js")
+    //script(src="/lib/titanic/bodymovin.min.js")
+    //script(src="https://unpkg.com/vue")
+    script(src="/lib/vue/vue.js")
     script(src="/lib/particles.min.js")
 
 block content
@@ -23,11 +25,25 @@ block content
         .video-tile(style="background-color: rgba(111,111,111,0.51);")
         .video-tile(style="background-color: rgba(111,111,111,0.50);")
         .video-tile(style="background-color: rgba(111,111,111,0.45);")
-        #caption {{content}}
+        //#caption {{content}}
+        //#caption Constructing...
+    .row
+        .col-md-5
+            #caption Constructing...
+        .col-md-7
+            ul(id='blog-list')
+                li(:id="'blog-'+blog.id" v-for="blog in blogs" )
+                    blog-preview
 
 
+
+
+    script(src='/javascripts/VueComponents/BlogPreview.js')
     script(src='/javascripts/welcome.js')
     script.
+        var list = new BlogPreviewFactory();
+        //list.getTest();
+
         particlesJS.load('particles-js', '/particles.json', function () {
             console.log('callback - particles.js config loaded');
         });

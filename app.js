@@ -10,6 +10,7 @@ let index = require('./routes/index');
 let users = require('./routes/users');
 let demo = require('./routes/demo');
 let articleRoute = require('./routes/articleRoute');
+let blogRoute = require('./routes/BlogRoute');
 let surpriseRoute = require('./routes/surpriseRoute');
 let adminRouter = require('./routes/AdminRouter');
 
@@ -33,6 +34,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/demo', demo);
 app.use('/article', articleRoute);
+app.use('/blog', blogRoute);
 app.use('/surprise', surpriseRoute);
 app.use('/admin', adminRouter);
 

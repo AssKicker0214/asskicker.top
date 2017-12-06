@@ -1,0 +1,81 @@
+:root{
+    --timeline-blog-color: #5ab4ff;
+    --timeline-width: 100px;
+    --dot-width: 20px;
+    --triangle-top: 10px;
+}
+
+.blog-preview{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-preview>.preview{
+    /*display: inline-block;*/
+    position: relative;
+    float: left;
+    width: calc(100% - var(--timeline-width));
+    margin-bottom: 20px;
+    /*left: var(--timeline-width);*/
+}
+
+.blog-preview>.preview>.triangle{
+    -webkit-transform:rotate(135deg);
+    -moz-transform:rotate(135deg);
+    -o-transform:rotate(135deg);
+    transform:rotate(135deg);
+    background-color: var(--timeline-blog-color);
+    width: 20px;
+    height: 20px;
+    position: relative;
+    z-index: -2;
+    left: 15px;
+    top: var(--triangle-top);
+    float: left;
+}
+
+.blog-preview>.preview>.detail{
+    float: left;
+    width: calc(100% - var(--timeline-width));
+    min-height: 100px;
+    background-color: var(--timeline-blog-color);
+}
+
+.time-line{
+    background-color: transparent;
+    width: var(--timeline-width);
+    position: relative;
+    float: left;
+    /*display: inline-block;*/
+}
+
+.time-line>.text{
+    font-size: 14px;
+}
+
+.time-line>.line{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: var(--dot-width);
+    height: 100vh;
+}
+
+.time-line>.line>.dot{
+    border-radius: 50%;
+    background-color: var(--timeline-blog-color);
+    position: absolute;
+    height: var(--dot-width);
+    width: var(--dot-width);
+    top: var(--triangle-top);
+}
+
+.time-line>.line>.link{
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    background-color: rgba(0,0,0,.5);
+    height: 100%;
+    z-index: -2;
+}

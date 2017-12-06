@@ -1,19 +1,16 @@
-/*@font-face{*/
-    /*src: url("/fonts/icons/glyphicon/glyphicons-halflings-regular.eot");*/
-    /*src: url("/fonts/icons/glyphicon/glyphicons-halflings-regular.svg");*/
-    /*src: url("/fonts/icons/glyphicon/glyphicons-halflings-regular.ttf");*/
-    /*src: url("/fonts/icons/glyphicon/glyphicons-halflings-regular.woff");*/
-    /*src: url("/fonts/icons/glyphicon/glyphicons-halflings-regular.woff2");*/
-/*}*/
+@font-face{
+    font-family: asanine;
+    src: url('/fonts/english/asenine.regular.ttf');
+}
 
 body{
     margin: 0;
 }
 
 .my-nav{
-    position: fixed;
+    position: relative;
     width: 100vw;
-    font-family: "Microsoft YaHei UI Light", serif;
+    font-family: "Microsoft YaHei UI Light", asanine, 'SimHei', serif;
     font-size: x-large;
     z-index: 10;
 }

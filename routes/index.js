@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/welcome', function (req, res, next) {
-    res.render('index/welcome', {content: "Welcome"});
+    res.render('index/welcome', {content: "Constructing..."});
 });
 
 router.post('/i-like-it', function (req, res) {

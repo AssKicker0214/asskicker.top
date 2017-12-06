@@ -1,0 +1,17 @@
+extends ../layout
+
+block specialRef
+    link(rel='stylesheet' href='/stylesheets/articleList.css')
+    script(src="https://unpkg.com/vue")
+
+block content
+    ul(id='blog-list')
+        li(:id="'blog-'+blog.id" v-for="blog in blogs" )
+            blog-preview
+
+
+
+    script(src='/javascripts/VueComponents/BlogPreview.js')
+    script.
+        var list = new BlogPreviewFactory();
+        //list.getTest();
