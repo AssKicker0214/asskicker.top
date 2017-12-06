@@ -37,12 +37,36 @@ var newsListVue = new Vue({
             title: 'test2',
             id: 222,
             content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+        }, {
+            title: 'test2',
+            id: 223,
+            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+        }, {
+            title: 'test2',
+            id: 242,
+            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+        }, {
+            title: 'test2',
+            id: 25,
+            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+        }, {
+            title: 'test2',
+            id: 23,
+            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+        }, {
+            title: 'test2',
+            id: 2252,
+            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+        }, {
+            title: 'test2',
+            id: 2332,
+            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
         }]
     },
     methods: {
         updateList: function () {
             $.ajax({
-                
+
             })
         }
     }
