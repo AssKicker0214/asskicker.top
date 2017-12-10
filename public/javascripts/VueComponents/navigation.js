@@ -30,7 +30,7 @@ var nav = new Vue({
     data: {
         isVoted: false,
         items: {
-            Index: true,
+            Index: false,
             Blog: false,
             Lab: false,
             Me: false,
@@ -67,6 +67,14 @@ var nav = new Vue({
                     self.likeCnt = res.likeCnt;
                 }
             })
+        },
+
+        activate: function (active) {
+            for(var item in nav.items){
+                console.log(item+":"+active+"="+(item===active));
+                nav.items[item] = (item === active);
+            }
+
         }
     },
 

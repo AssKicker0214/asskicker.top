@@ -1,0 +1,67 @@
+extends ../layout
+
+block specialRef
+    link(rel='stylesheet' href='/stylesheets/admin/Login.css')
+    script(src="/lib/vue/vue.js")
+
+block content
+    .input-group.input-group-lg(id='login-form')
+        input(@keyup="login(password, $event)" v-model="password" placeholder='password', type='password' id='pw-input' class='form-control')
+        input(type='hidden' id='redirect' data-redirect='#{redirectUrl}')
+        .input-group-btn
+            button(@click="login(password)" role='button' type='button' class="btn btn-primary" id="login-btn") {{btnText}}
+        #tip {{tip}}
+    script.
+        var loginVue = new Vue({
+            el: "#login-form",
+            data: {
+                password: "",
+                btnText: "登录",
+                locked: false,
+                tip: ""
+            },
+            methods: {
+                login: function (pswd, event) {
+                    if(loginVue.locked){
+                        return
+                    }
+                    if(!event || (event && event.keyCode === 13)){
+                        if(pswd){
+                            $.ajax({
+                                url: '/admin/check',
+                                dataType: 'json',
+                                data: {password: pswd},
+                                type: 'post',
+                                success: function (res) {
+                                    console.log(res);
+                                    if(res.result === true){
+                                        var redirectUrl = $("#redirect").attr('data-redirect');
+                                        console.log(redirectUrl);
+                                        window.location.href = redirectUrl;
+                                    }else{
+                                        loginVue.btnText = "重试";
+                                        var tried = res.tried;
+                                        var btn = $("#login-btn");
+                                        if(tried){
+                                            if(tried>3){
+                                                btn.attr('disabled', 'disabled');
+                                                loginVue.btnText = "锁定";
+                                                loginVue.locked = true;
+                                            }else if(tried > 2){
+                                                btn.addClass('btn-danger');
+                                            }else if(tried > 1){
+                                                btn.addClass('btn-warning');
+                                            } else if (tried > 0) {
+                                                btn.addClass('btn-info');
+                                            }
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        })
+
+

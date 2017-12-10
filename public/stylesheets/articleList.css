@@ -1,5 +1,6 @@
-.article-panel{
-
+.panel{
+    padding: 1em 2em;
+    background-color: #eef7f2f2;
 }
 
 .title:hover{
@@ -8,13 +9,34 @@
 }
 
 .title{
-    display: inline-block;
+    /*display: inline-block;*/
 }
 
 article h2{
-    display: inline-block;
+    /*display: inline-block;*/
 }
 
 article small{
-    display: inline-block;
+    /*display: inline-block;*/
+}
+
+ul{
+    overflow: hidden;
+}
+
+li{
+    position: relative;
+    float: left;
+    margin: 5px;
+}
+
+body{
+    background: linear-gradient(to bottom right, #6f6c98, #806258);
+    background: -webkit-linear-gradient(left top, #6f6c98, #806258); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(bottom right, #6f6c98, #804c51); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(bottom right, #6f6c98, #804c51); /* Firefox 3.6 - 15 */;
+}
+
+#my-nav{
+    background-color: #fffaf069;
 }

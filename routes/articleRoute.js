@@ -24,9 +24,6 @@ router.get('/create', function (req, res, next) {
     });
 });
 
-router.get('/edit', function (req, res, next) {
-    res.render('article/articleEdit', {no: req.query.no, title: '修改文章'})
-});
 
 router.get('/list', function (req, res, next) {
     articleModel.list(null, function (list) {

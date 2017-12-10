@@ -29,6 +29,11 @@ body{
     cursor: pointer;
 }
 
+.my-nav>ul>li>a{
+    text-decoration: none;
+    color: inherit;
+}
+
 .my-nav>ul>li:hover{
     font-weight: 800;
 }
@@ -51,7 +56,7 @@ body{
 #like{
     float: right;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-right: 2rem;
     padding: .5rem 2rem;
     border-radius: 5px;

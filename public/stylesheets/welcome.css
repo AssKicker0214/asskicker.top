@@ -2,7 +2,7 @@ body{
     background: -webkit-linear-gradient(left top, #3ee3ff, #eda3ffbb); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(bottom right, red, blue); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(bottom right, red, blue); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to bottom right, #3ee3ff, #eda3ffbb); /* 标准的语法 */
+    background: linear-gradient(to bottom right, #92d2f7, #c5a98cbb); /* 标准的语法 */
 }
 
 html{

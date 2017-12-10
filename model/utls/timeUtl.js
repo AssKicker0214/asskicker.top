@@ -48,6 +48,9 @@ class TimeUtl{
             return {value: Math.round(day), unit:'天前'};
         }
         let year = month/12;
+        if(year < 1){
+            return {value: Math.round(month), unit:'个月前'}
+        }
 
         return {value: Math.round(year), unit:'年前'};
     }

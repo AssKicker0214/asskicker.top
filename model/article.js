@@ -90,7 +90,8 @@ class ArticleModel {
                         title: doc.title,
                         content: doc.content,
                         createAgo: createAgo,
-                        updateAgo: updateAgo
+                        updateAgo: updateAgo,
+                        keywords: doc.keywords
                     };
                     articles.push(article);
                 });

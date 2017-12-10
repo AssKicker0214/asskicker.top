@@ -2,18 +2,23 @@ extends ../layout
 
 block specialRef
     link(rel='stylesheet' href='/stylesheets/articleList.css')
+    script(src="/lib/vue/vue.js")
 
 block content
     mixin title(name)
         title.name = name
 
+    include ../common/nav
     //div #{list[0].no}
     ul
-    each item in list
-        li
-            article(class='panel panel-default')
-                div(class='title')
-                    a(href='/article/detail?no=#{item.no}')
-                        h2 #{item.title}
-                        small #{item.createAgo.value} #{item.createAgo.unit}&nbsp;
-                a(href='/article/edit?no=#{item.no}' class="btn btn-success glyphicon glyphicon-pencil") &nbsp;编辑
+        each item in list
+            li
+                article(class='panel panel-default')
+                    div(class='title')
+                        a(href='/article/detail?no=#{item.no}')
+                            h2 #{item.title}
+                            small #{item.createAgo.value} #{item.createAgo.unit}&nbsp;
+                    a(href='/admin/article/edit?no=#{item.no}' class="btn btn-sm btn-success glyphicon glyphicon-pencil") &nbsp;编辑
+
+    script.
+        nav.activate('Blog');

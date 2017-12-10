@@ -3,11 +3,13 @@
 nav(class="my-nav" id="my-nav" xmlns:v-on="http://www.w3.org/1999/xhtml")
     ul
         li(:class="{active: items.Index}")
-            .big 首页
-            .small Index
+            a(href="/welcome")
+                .big 首页
+                .small Index
         li(:class="{active: items.Blog}")
-            .big 博客
-            .small Blog
+            a(href="/article/list")
+                .big 博客
+                .small Blog
         li(:class="{active: items.Lab}")
             .big 实验室
             .small Lab

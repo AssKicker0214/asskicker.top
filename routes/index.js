@@ -11,6 +11,16 @@ router.get('/welcome', function (req, res, next) {
     res.render('index/welcome', {content: "Constructing..."});
 });
 
+router.get('/test/*', function(req, res, next){
+    console.log('test');
+    next()
+});
+
+router.get('/test/next', function (req, res, next) {
+    console.log('next');
+    res.send("done");
+});
+
 router.post('/i-like-it', function (req, res) {
     if (req.cookie) {
 
