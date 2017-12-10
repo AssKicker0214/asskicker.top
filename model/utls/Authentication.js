@@ -3,11 +3,13 @@
  */
 let md5 = require('md5');
 let fs = require('fs');
+let path = require('path');
 // let IP = require('IPUtility');
 class Authentication{
 
     constructor(){
-        this.passwd = fs.readFileSync('./password', 'utf-8');
+        this.passwd = fs.readFileSync(''+path.join(__dirname, "password"), 'utf-8');
+        console.log("### load password file"+path.join(__dirname, "password"));
         this.blockList = {};
         this.token = null;
         this.authIp = null;
