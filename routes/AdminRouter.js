@@ -3,7 +3,7 @@
  */
 let express = require('express');
 let router = express.Router();
-let ArticleSetModel = require('../model/articleSet');
+let ArticleSetModel = require('../model/topic');
 let ArticleModel = require('../model/article');
 let auth = require('../model/utls/Authentication');
 // router.use(function (req, res, next) {

@@ -5,14 +5,14 @@ let connectDB = require('./database');
 let mongoose = require('mongoose');
 let TimeUtl = require('./utls/timeUtl');
 
-class ArticleSetModel {
+class TopicModel {
     // db
     // Article
 
     constructor() {
         this.db = connectDB('app');
 
-        let articleSetSchema = mongoose.Schema({
+        let topicSchema = mongoose.Schema({
             no: Number,
             createTime: Number,
             updateTime: {
@@ -28,7 +28,7 @@ class ArticleSetModel {
             articles: [{articleNo: Number}]
         });
 
-        this.ArticleSet = this.db.model('ArticleSet', articleSetSchema, 'articleSets');
+        this.Topic = this.db.model('Topic', topicSchema, 'topics');
     }
 
     save(no, name, description, articles, createTime, saveCallback) {
@@ -46,7 +46,7 @@ class ArticleSetModel {
             console.info("no createTime" + createTime);
         }
 
-        this.ArticleSet.findOneAndUpdate({no: no}, newData, {upsert: true}, function (err, doc) {
+        this.Topic.findOneAndUpdate({no: no}, newData, {upsert: true}, function (err, doc) {
             if (err) {
                 console.error(err);
             } else {
@@ -56,7 +56,7 @@ class ArticleSetModel {
     }
 
     precreate(queryCallback) {
-        this.ArticleSet.find({}, {no: 1}, function (err, docs) {
+        this.Topic.find({}, {no: 1}, function (err, docs) {
             let max = 0;
             if (docs) {
                 docs.forEach(function (val, index, array) {
@@ -70,14 +70,14 @@ class ArticleSetModel {
     }
 
     list(queryCallback) {
-        this.ArticleSet.find({}, {'_id': 0}, function (err, docs) {
+        this.Topic.find({}, {'_id': 0}, function (err, docs) {
             if (docs) {
-                let articleSets = [];
+                let topics = [];
                 docs.forEach(function (doc, index, array) {
                     let timeUtl = new TimeUtl();
                     // let createAgo = timeUtl.dayToNow(doc.createTime);
                     // let updateAgo = timeUtl.dayToNow(doc.updateTime);
-                    let articleSet = {
+                    let topic = {
                         no: doc.no,
                         name: doc.name,
                         description: doc.description,
@@ -85,9 +85,9 @@ class ArticleSetModel {
                         // createAgo: createAgo,
                         // updateAgo: updateAgo
                     };
-                    articleSets.push(articleSet);
+                    topics.push(topic);
                 });
-                queryCallback(articleSets);
+                queryCallback(topics);
             } else {
                 queryCallback();
             }
@@ -96,7 +96,7 @@ class ArticleSetModel {
     }
 
     listContents(queryCallback){
-        this.ArticleSet.find({}, {'_id': 0, 'no': 1, 'title': 1, 'content':1}, function (err, docs) {
+        this.Topic.find({}, {'_id': 0, 'no': 1, 'title': 1, 'content':1}, function (err, docs) {
             if (docs) {
                 let articles = [];
                 docs.forEach(function (doc, index, array) {
@@ -124,4 +124,4 @@ class ArticleSetModel {
 
 }
 
-module.exports = ArticleSetModel;
+module.exports = TopicModel;
