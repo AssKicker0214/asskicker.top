@@ -3,13 +3,13 @@
  */
 function refreshSetList(isAsync) {
     $.ajax({
-        url: "/admin/article/data/sets",
+        url: "/admin/article/data/topics",
         type: "get",
         async: isAsync || false,
         dataType: "json",
         success: function (doc) {
             if (doc) {
-                setList = doc.setList;
+                topicList = doc.topicList;
             }
         }
     });
@@ -29,11 +29,11 @@ function refreshArticleList(isAsync) {
         }
     });
 }
-var setList = [];
+var topicList = [];
 var articleList = [];
 
-var setDetailModel = new Vue({
-    el: "#set-detail",
+var topicDetailModel = new Vue({
+    el: "#topic-detail",
     data: {
         no: "-",
         disableSave: true,
@@ -44,7 +44,7 @@ var setDetailModel = new Vue({
     },
     methods: {
         click: function (no) {
-            var articles = setDetailModel.articles;
+            var articles = topicDetailModel.articles;
             var excludedNos = [];
             for (var i = 0; i < articles.length; i++) {
                 if (no === articles[i].no) {
@@ -59,7 +59,7 @@ var setDetailModel = new Vue({
         addArticle: function (no) {
             for (var i = 0; i < articleList.length; i++) {
                 if (no === articleList[i].no) {
-                    setDetailModel.articles.push(articleList[i]);
+                    topicDetailModel.articles.push(articleList[i]);
                     console.log(articleList[i]);
                 }
             }
@@ -69,43 +69,43 @@ var setDetailModel = new Vue({
                 return articleNo.articleNo;
             }));
 
-            setDetailModel.articles = articlesFilled;
-            setDetailModel.name = name;
-            setDetailModel.no = no;
-            setDetailModel.description = description;
-            setDetailModel.action = action;
+            topicDetailModel.articles = articlesFilled;
+            topicDetailModel.name = name;
+            topicDetailModel.no = no;
+            topicDetailModel.description = description;
+            topicDetailModel.action = action;
         },
         save: function () {
-            if (!setDetailModel.no || !setDetailModel.name) {
-                console.error("saving error, check set's no and name");
+            if (!topicDetailModel.no || !topicDetailModel.name) {
+                console.error("saving error, check topic's no and name");
                 return
             }
             var articles = [];
-            setDetailModel.articles.forEach(function (article) {
+            topicDetailModel.articles.forEach(function (article) {
                 articles.push({articleNo: article.no})
             });
-            setDetailModel.disableSave = true;
-            setDetailModel.action = "正在保存";
+            topicDetailModel.disableSave = true;
+            topicDetailModel.action = "正在保存";
             $.ajax({
-                url: "/admin/article/set/save",
+                url: "/admin/article/topic/save",
                 type: "post",
                 async: true,
                 dataType: "json",
                 data: {
-                    no: setDetailModel.no,
-                    name: setDetailModel.name,
-                    description: setDetailModel.description,
+                    no: topicDetailModel.no,
+                    name: topicDetailModel.name,
+                    description: topicDetailModel.description,
                     createTime: new Date().getTime(),
                     articles: JSON.stringify(articles)
                 },
                 success: function () {
                     refreshSetList(false);
-                    setListModel.updateList();
+                    topicListModel.updateList();
                     console.info("主题保存成功");
                 },
                 complete: function () {
-                    setDetailModel.disableSave = false;
-                    setDetailModel.action = "保存更新";
+                    topicDetailModel.disableSave = false;
+                    topicDetailModel.action = "保存更新";
                 }
             });
         }
@@ -113,39 +113,39 @@ var setDetailModel = new Vue({
 });
 
 refreshSetList();
-var setListModel = new Vue({
-    el: "#set-list",
+var topicListModel = new Vue({
+    el: "#topic-list",
     data: {
-        list: setList,
+        list: topicList,
         selectedNo: null
     },
     methods: {
         create: function () {
             $.ajax({
-                url: "/admin/article/set/precreate",
+                url: "/admin/article/topic/precreate",
                 type: "get",
                 async: true,
                 dataType: "json",
                 success: function (res) {
-                    setDetailModel.setData("", res.no, "", [], "保存新建");
+                    topicDetailModel.setData("", res.no, "", [], "保存新建");
                 }
             });
         },
 
         updateList: function () {
-            setListModel.list = setList.map(function (set) {
-                set.size = set.articles.length;
-                return set;
+            topicListModel.list = topicList.map(function (topic) {
+                topic.size = topic.articles.length;
+                return topic;
             });
         },
 
-        click: function (set) {
-            setDetailModel.setData(set.name, set.no, set.description, set.articles, "更新主题");
-            setListModel.selectedNo = set.no;
+        click: function (topic) {
+            topicDetailModel.setData(topic.name, topic.no, topic.description, topic.articles, "更新主题");
+            topicListModel.selectedNo = topic.no;
         }
     }
 });
-setListModel.updateList();
+topicListModel.updateList();
 
 // 右侧列表页
 var articleListModel = new Vue({
@@ -155,7 +155,7 @@ var articleListModel = new Vue({
     },
     methods: {
         click: function (no) {
-            setDetailModel.addArticle(no);
+            topicDetailModel.addArticle(no);
             var articleList = articleListModel.articleList;
             for (var i = 0; i < articleList.length; i++) {
                 if (no === articleList[i].no) {

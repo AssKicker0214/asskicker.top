@@ -1,20 +1,20 @@
 extends ../layout
 
 block specialRef
-    link(rel='stylesheet' href='/stylesheets/admin/ArticleSet.css')
+    link(rel='stylesheet' href='/stylesheets/admin/topic.css')
     script(src="/lib/vue/vue.js")
 
 block content
     .row
-        .col-xs-3#set-list
+        .col-xs-3#topic-list
             ul
-                li(@click="create" class="set-item-panel set-item-create-panel") 添加+
+                li(@click="create" class="topic-item-panel topic-item-create-panel") 添加+
 
-                li(@click="click(item)"  v-for="item in list" class="set-item-panel") {{item.name}}
+                li(@click="click(item)"  v-for="item in list" class="topic-item-panel") {{item.name}}
                     span( class="badge right" style="float: right") {{item.size}}
                     div(class="background" v-if="selectedNo === item.no")
 
-        .col-xs-4#set-detail
+        .col-xs-4#topic-detail
             //div
                 button(@click="save" class="btn btn-primary" v-bind:class="{disable: disableSave}") {{action}}
             .input-group
@@ -24,7 +24,7 @@ block content
             textarea(v-model="description")
             br
             ul
-                li(@click="click(article.no)" class="article-in-set" v-for="article in articles") {{article.title}}
+                li(@click="click(article.no)" class="article-in-topic" v-for="article in articles") {{article.title}}
             button(@click="save" class="btn btn-primary" v-bind:class="{disable: disableSave}") {{action}}
         .col-xs-5#article-list
             ul
@@ -34,4 +34,4 @@ block content
                     div tags
 
 
-    script(src="/javascripts/admin/ArticleSet.js")
+    script(src="/javascripts/admin/topic.js")

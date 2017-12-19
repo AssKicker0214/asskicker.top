@@ -3,7 +3,7 @@
  */
 let express = require('express');
 let router = express.Router();
-let ArticleSetModel = require('../model/topic');
+let TopicModel = require('../model/topic');
 let ArticleModel = require('../model/article');
 let auth = require('../model/utls/Authentication');
 // router.use(function (req, res, next) {
@@ -17,7 +17,7 @@ let auth = require('../model/utls/Authentication');
 //     }
 // });
 
-let setModel = new ArticleSetModel();
+let topicModel = new TopicModel();
 let articleModel = new ArticleModel();
 
 let validateAuthentication = function (req, res, next) {
@@ -55,28 +55,28 @@ router.post('/check', function (req, res) {
     }
 });
 
-router.get('/article/set', function (req, res) {
-    res.render('admin/ArticleSet', {title: "主题管理"});
+router.get('/article/topic', function (req, res) {
+    res.render('admin/topic', {title: "主题管理"});
 });
 
-router.get('/article/set/precreate', function (req, res) {
-    setModel.precreate(function (no) {
+router.get('/article/topic/precreate', function (req, res) {
+    topicModel.precreate(function (no) {
         res.json({no: no})
     });
 });
 
-router.post('/article/set/save', function (req, res) {
+router.post('/article/topic/save', function (req, res) {
     let args = req.body;
     // console.log(args.articles);
-    setModel.save(args.no, args.name, args.description, JSON.parse(args.articles), args.createTime,  function () {
+    topicModel.save(args.no, args.name, args.description, JSON.parse(args.articles), args.createTime,  function () {
 
         res.json({result: true})
     });
 });
 
-router.get('/article/data/sets', function (req, res) {
-    setModel.list(function (list) {
-        res.json({setList: list})
+router.get('/article/data/topics', function (req, res) {
+    topicModel.list(function (list) {
+        res.json({topicList: list})
     });
 
 });

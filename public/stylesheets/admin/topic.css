@@ -4,7 +4,7 @@
     overflow-y: auto;
 }
 
-.set-item-panel {
+.topic-item-panel {
     border-left: #767bbd solid 5px;
     background-color: rgba(45,100,100,0.1);
     padding: 5px;
@@ -14,12 +14,12 @@
     overflow: hidden;
     position: relative;
 }
-.set-item-panel:hover{
+.topic-item-panel:hover{
     margin-right: 0;
     cursor: pointer;
 }
 
-.set-item-selected-panel {
+.topic-item-selected-panel {
     background-color: #8fe093;
 }
 
@@ -34,7 +34,7 @@
     left: 0;
 }
 
-.set-item-create-panel {
+.topic-item-create-panel {
     border: dashed #c7bfbf;
     background-color: white;
     color: #7b6c6e;
@@ -43,11 +43,11 @@
     margin-top: 5px;
 }
 
-#set-detail {
+#topic-detail {
 
 }
 
-#set-detail > textarea {
+#topic-detail > textarea {
     width: 100%;
     height: 6em;
     resize: vertical;
@@ -80,7 +80,7 @@ ul {
     font-size: 1.6em;
 }
 
-.article-in-set{
+.article-in-topic{
     font-size: 1.2em;
     padding: 10px;
     /*border: #337ab7 solid 1px;*/
@@ -88,17 +88,17 @@ ul {
     margin-bottom: 5px;
     /*color: whitesmoke;*/
 }
-.article-in-set:hover{
+.article-in-topic:hover{
     margin-left:-5px;
     margin-right:-5px;
     cursor: pointer;
     font-size: 1.25em;
 }
 
-#set-detail{
+#topic-detail{
     height: 100vh;
 }
-#set-detail>ul{
+#topic-detail>ul{
     /*position: relative;*/
     /*bottom: 14em;*/
     /*top: 0;*/
@@ -106,14 +106,14 @@ ul {
     overflow-y: auto;
     overflow-x: hidden;
 }
-#set-detail>button{
+#topic-detail>button{
     position: absolute;
     bottom: 0;
 }
-#set-detail>textarea{
+#topic-detail>textarea{
     height: 15%;
 }
-#set-detail>.input-group{
+#topic-detail>.input-group{
     margin-top: 20px;
 }
 
