@@ -3,7 +3,7 @@
  */
 let express = require('express');
 let router = express.Router();
-let TopicModel = require('../model/topic');
+let TopicModel = require('../model/admin/topic');
 let ArticleModel = require('../model/article');
 let auth = require('../model/utls/Authentication');
 // router.use(function (req, res, next) {
@@ -92,4 +92,7 @@ router.get('/article/edit', function (req, res, next) {
     res.render('article/articleEdit', {no: req.query.no, title: '修改文章'})
 });
 
+router.get('/news', function (req, res, next) {
+
+});
 module.exports = router;

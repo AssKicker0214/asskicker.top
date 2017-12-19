@@ -1,9 +1,9 @@
 /**
  * Created by ian0214 on 2017/8/8.
  */
-let connectDB = require('./database');
+let connectDB = require('../database');
 let mongoose = require('mongoose');
-let TimeUtl = require('./utls/timeUtl');
+let TimeUtl = require('../utls/timeUtl');
 
 class TopicModel {
     // db
