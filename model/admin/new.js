@@ -59,11 +59,11 @@ class PlainNews extends Piece{
 
 }
 
-class News{
+class NewsModel{
     constructor() {
         this.db = connectDB('app');
 
-        let articleSchema = mongoose.Schema({
+        let newsSchema = mongoose.Schema({
             no: Number,
             time: Number,
             title: String,
@@ -74,7 +74,7 @@ class News{
             posterUrl: String
         });
 
-        this.News = this.db.News('News', articleSchema, 'news');
+        this.News = this.db.model('News', newsSchema, 'news');
     }
 
     list(){
@@ -112,4 +112,4 @@ class News{
     }
 }
 
-module.exports = News;
+module.exports = NewsModel;

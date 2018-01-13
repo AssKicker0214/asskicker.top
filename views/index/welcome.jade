@@ -52,3 +52,47 @@ block content
         particlesJS.load('particles-js', '/particles.json', function () {
             console.log('callback - particles.js config loaded');
         });
+
+        var newsListVue = new Vue({
+            el: "#news-list",
+            data: {
+                newsList: [{
+                    title: 'test',
+                    id: 111,
+                    content: 'testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttt'
+                }, {
+                    title: 'test2',
+                    id: 222,
+                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+                }, {
+                    title: 'test2',
+                    id: 223,
+                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+                }, {
+                    title: 'test2',
+                    id: 242,
+                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+                }, {
+                    title: 'test2',
+                    id: 25,
+                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+                }, {
+                    title: 'test2',
+                    id: 23,
+                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+                }, {
+                    title: 'test2',
+                    id: 2252,
+                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+                }, {
+                    title: 'test2',
+                    id: 2332,
+                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
+                }]
+            },
+            methods: {
+                updateList: function () {
+                    $.ajax({})
+                }
+            }
+        });

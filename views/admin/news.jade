@@ -2,7 +2,64 @@ extends ../layout
 
 block specialRef
     link(rel='stylesheet' href='/stylesheets/admin/news.css')
-    script(src="/lib/vue/vue.js")
+    link(rel='stylesheet' href='/stylesheets/VueComponents/NewsAbstract.css')
+    link(rel='stylesheet' href='/lib/file-input/fileinput.min.css')
+    link(rel='stylesheet' href='/lib/datetime-picker/bootstrap-datepicker3.min.css')
+    script(src="/lib/file-input/fileinput.min.js")
+    script(src="/lib/datetime-picker/bootstrap-datepicker.min.js")
 
 block content
+    .row
+        .col-xs-3#news-list
+            ul
+                li(@click="create" class="news-item-panel news-item-create-panel") 添加+
+
+                li( v-for="news in newsList" )
+                    news-abstract(:data='news')
+        .col-xs-4#news-detail
+            //div
+                button(@click="save" class="btn btn-primary" v-bind:class="{disable: disableSave}") {{action}}
+
+            //.input-group
+            .input-group
+                // 暂时使用编号精确查找
+                // span(class="input-group-addon") 关联编号
+                input(class="form-control" type="text" v-model="linkTo.no")
+                .input-group-btn
+                    button(class="btn btn-primary dropdown-toggle" data-toggle="dropdown") 不关联&nbsp;
+                        span(class="caret")
+                    ul(class="dropdown-menu")
+                        li
+                            a 不关联
+                        li
+                            a 博客
+                        li
+                            a 实验室
+
+            br
+            .input-group
+                span(class="input-group-addon") 新闻标题
+                input(class="form-control" type="text" v-model="title")
+            .input-group
+                span(class="input-group-addon") 新闻时间
+                input(id="date" class="form-control" type="text" v-model="date.formated")
+            br
+            textarea(v-model="content")
+            br
+            input(id="bg-img" name="bg-img" class="form-control file" data-msg-placeholder="选择背景图片" data-allowed-file-extensions='["jpg", "png"]' type="file")
+            hr
+            news-abstract(:data="this")
+            button(@click="save" class="btn btn-primary" v-bind:class="{disable: disableSave}") {{action}}
+        .col-xs-5#article-list
+            ul
+                li(v-for="article in articleList" class="article-list-panel")
+                    div(@click="click(article.no)" class="article-list-title") {{article.title}}
+                    hr
+                    div tags
+
+    script(src="/lib/vue/vue.js")
+
+    script(src='/javascripts/VueComponents/NewsAbstract.js')
+    script(src="/javascripts/admin/new.js")
+    script.
 

@@ -9,7 +9,7 @@ Vue.component('news-abstract', {
     template:
 `<article class="news-abstract">
     <div class="time-line">
-        <div class="text">100天前</div>
+        <div class="text">{{data.date.format()}}</div>
         <div class="line">
             <div class="dot"></div>
             <div class="link"></div>
@@ -26,51 +26,6 @@ Vue.component('news-abstract', {
 
 });
 
-var newsListVue = new Vue({
-    el: "#news-list",
-    data: {
-        newsList: [{
-            title: 'test',
-            id: 111,
-            content: 'testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttt'
-        }, {
-            title: 'test2',
-            id: 222,
-            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-        }, {
-            title: 'test2',
-            id: 223,
-            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-        }, {
-            title: 'test2',
-            id: 242,
-            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-        }, {
-            title: 'test2',
-            id: 25,
-            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-        }, {
-            title: 'test2',
-            id: 23,
-            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-        }, {
-            title: 'test2',
-            id: 2252,
-            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-        }, {
-            title: 'test2',
-            id: 2332,
-            content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-        }]
-    },
-    methods: {
-        updateList: function () {
-            $.ajax({
-
-            })
-        }
-    }
-});
 
 // function NewsAbstractFactory() {
 //     var newsAbstractTemplate =

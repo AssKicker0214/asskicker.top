@@ -1,0 +1,126 @@
+#article-list{
+    height: 95vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.news-item-panel {
+    border-left: #767bbd solid 5px;
+    background-color: rgba(45,100,100,0.1);
+    padding: 5px;
+    font-size: 1.3vw;
+    margin-top: 5px;
+    margin-right: 10px;
+    overflow: hidden;
+    position: relative;
+}
+.news-item-panel:hover{
+    margin-right: 0;
+    cursor: pointer;
+}
+
+.news-item-selected-panel {
+    background-color: #8fe093;
+}
+
+.background {
+    background-color: #75b4ea;
+    color: whitesmoke;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.news-item-create-panel {
+    border: dashed #c7bfbf;
+    background-color: white;
+    color: #7b6c6e;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+#news-detail {
+
+}
+
+#news-detail > textarea {
+    width: 100%;
+    height: 6em;
+    resize: vertical;
+}
+
+ul {
+    padding: 0;
+}
+
+.article-list-panel{
+    border-left: #767bbd solid 5px;
+    box-shadow:1px 1px 1px grey ;
+    margin-bottom: 5px;
+}
+.article-list-panel:hover{
+    box-shadow:1px 1px 15px grey ;
+    cursor: pointer;
+}
+.article-list-panel>hr{
+    padding: 0;
+    margin-top: 5px;
+    margin-bottom: 1rem;
+}
+.article-list-panel>.article-list-title{
+    font-size: 1.5em;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+.article-list-panel>.article-list-title:hover{
+    font-size: 1.6em;
+}
+
+.article-in-news{
+    font-size: 1.2em;
+    padding: 10px;
+    /*border: #337ab7 solid 1px;*/
+    background-color: #f2f2f2;
+    margin-bottom: 5px;
+    /*color: whitesmoke;*/
+}
+.article-in-news:hover{
+    margin-left:-5px;
+    margin-right:-5px;
+    cursor: pointer;
+    font-size: 1.25em;
+}
+
+#news-detail{
+    height: 100vh;
+}
+#news-detail>ul{
+    /*position: relative;*/
+    /*bottom: 14em;*/
+    /*top: 0;*/
+    height: 60%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#news-detail>button{
+    position: absolute;
+    bottom: 0;
+}
+#news-detail>textarea{
+    height: 15%;
+}
+#news-detail>.input-group{
+    margin-top: 20px;
+}
+
+.input-group{
+    width: 100%;
+}
+
+body{
+    overflow: hidden;
+}

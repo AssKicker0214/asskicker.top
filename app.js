@@ -8,11 +8,12 @@ let serveIndex = require('serve-index');
 
 let index = require('./routes/index');
 let users = require('./routes/users');
-let demo = require('./routes/demo');
+let demo = require('./routes/LabRoute');
 let articleRoute = require('./routes/articleRoute');
 let blogRoute = require('./routes/BlogRoute');
 let surpriseRoute = require('./routes/surpriseRoute');
-let adminRouter = require('./routes/AdminRouter');
+let adminRouter = require('./routes/AdminRoute');
+let labRouter = require('./routes/LabRoute');
 
 let app = express();
 
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/CloudComputing', serveIndex(path.join(__dirname, "/public/CloudComputing")));
 
 app.use('/', index);
+app.use('/lab', labRouter);
 app.use('/users', users);
 app.use('/demo', demo);
 app.use('/article', articleRoute);
