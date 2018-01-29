@@ -34,7 +34,7 @@ block content
                 #caption Constructing...
         .col-md-7
             ul(id='news-list')
-                li( v-for="news in newsList" )
+                li( v-for="news in list" )
                     news-abstract(:data='news')
                 //li
                 //    news-abstract
@@ -56,43 +56,25 @@ block content
         var newsListVue = new Vue({
             el: "#news-list",
             data: {
-                newsList: [{
-                    title: 'test',
-                    id: 111,
-                    content: 'testtttttttttttttttttttttttttttttttttttttttttttttttttttttttttt'
-                }, {
-                    title: 'test2',
-                    id: 222,
-                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-                }, {
-                    title: 'test2',
-                    id: 223,
-                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-                }, {
-                    title: 'test2',
-                    id: 242,
-                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-                }, {
-                    title: 'test2',
-                    id: 25,
-                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-                }, {
-                    title: 'test2',
-                    id: 23,
-                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-                }, {
-                    title: 'test2',
-                    id: 2252,
-                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-                }, {
-                    title: 'test2',
-                    id: 2332,
-                    content: 'asdfasdfasdfsadfasdfsadfaskldjfffffffffffalllllllllllllllllll'
-                }]
+                list: []
             },
             methods: {
                 updateList: function () {
-                    $.ajax({})
+                    $.ajax({
+                        url: "/news/list",
+                        type: "get",
+                        dataType: "json",
+                        success: function (res) {
+                            newsListVue.list = res.list;
+                        },
+                        error: function (err) {
+                            console.error(err);
+
+                        }
+                    });
                 }
+            },
+            created: function () {
+                this.updateList();
             }
         });

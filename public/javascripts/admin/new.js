@@ -2,8 +2,33 @@
  * Created by ian0214 on 18/1/9.
  */
 
+var newsList = new Vue({
+    el: "#news-list",
+    data: {
+        list: []
+    },
+    methods: {
+        updateList: function () {
+            $.ajax({
+                url: "/news/list",
+                type: "get",
+                dataType: "json",
+                success: function (res) {
+                    newsList.list = res.list;
+                },
+                error: function (err) {
+                    console.error(err);
 
-
+                }
+            })
+        },
+        
+        create: function () {
+            
+        }
+    }
+});
+newsList.updateList();
 
 var selected = new Vue({
     el: "#news-detail",
@@ -16,20 +41,23 @@ var selected = new Vue({
             no: ""
         },
         date: {
-            format: function () {
-
-                var date = new Date(this.timeStamp);
-                console.log("in format "+this.timeStamp);
-                // return date.get
-                return `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`
-            },
-            timeStamp: 0
+            formatted: "",
+            timeStamp: new Date().getTime()
         },
         content: "",
         disableSave: false,
         action: "保存"
     },
     methods:{
+        format: function () {
+
+            var date = new Date(this.date.timeStamp);
+            // console.log("in format "+this.date.timeStamp);
+            var formatted = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
+            this.date.formatted = formatted;
+            // return date.get
+            return formatted;
+        },
         save: function () {
             var newsObj = {
                 title: this.title,
@@ -60,7 +88,7 @@ var selected = new Vue({
             }else if(type === "article"){
                 this.linkTo.text = "博客";
             }else if(type === "lab"){
-                this.linkTo.text = "实验室"
+                this.linkTo.text = "实验室";
             }
         },
 
@@ -93,7 +121,7 @@ var selected = new Vue({
         autoclose: true,
         todayHighlight: true
     }).on('changeDate', function (e) {
-        console.log(e);
+        // console.log(e);
         selected.date.timeStamp = e.date.getTime();
     });
 })();

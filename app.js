@@ -14,6 +14,7 @@ let blogRoute = require('./routes/BlogRoute');
 let surpriseRoute = require('./routes/surpriseRoute');
 let adminRouter = require('./routes/AdminRoute');
 let labRouter = require('./routes/LabRoute');
+let newsRoute = require('./routes/NewsRoute');
 
 let app = express();
 
@@ -39,6 +40,7 @@ app.use('/article', articleRoute);
 app.use('/blog', blogRoute);
 app.use('/surprise', surpriseRoute);
 app.use('/admin', adminRouter);
+app.use('/news', newsRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

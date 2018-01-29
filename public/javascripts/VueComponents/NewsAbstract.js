@@ -9,7 +9,7 @@ Vue.component('news-abstract', {
     template:
 `<article class="news-abstract">
     <div class="time-line">
-        <div class="text">{{data.date.format()}}</div>
+        <div class="text">{{data.date.formatted}}</div>
         <div class="line">
             <div class="dot"></div>
             <div class="link"></div>

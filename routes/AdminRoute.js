@@ -126,6 +126,8 @@ router.post('/news/upload-bg-img', function (req, res, next) {
 
 });
 
+
+
 router.post('/news/save', function (req, res) {
     let news = req.body;
     newsModel.save(news, function (rs) {

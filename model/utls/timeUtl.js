@@ -8,6 +8,14 @@ class TimeUtl{
         this.currentTime = new Date();
     }
 
+    static formatDate(splitter, timeStamp){
+        let s = splitter || "/";
+        let date = new Date(timeStamp);
+        console.log(timeStamp);
+        console.log(date.toTimeString());
+        return `${date.getFullYear()}${s}${date.getMonth()+1}${s}${date.getDate()}`;
+    }
+
     getCurrentTimeJson(){
         return {
             year: this.currentTime.getFullYear(),

@@ -48,7 +48,7 @@ class Piece {
     format() {
         return {
             no: this.no,
-            time: this.timeStamp,
+            timeStamp: this.timeStamp,
             title: this.title,
             abstract: this.abstract,
             type: this.getType(),
@@ -88,7 +88,7 @@ class NewsModel {
 
         let newsSchema = mongoose.Schema({
             no: Number,
-            time: Number,
+            timeStamp: Number,
             title: String,
             abstract: String,
             type: String,
@@ -104,8 +104,46 @@ class NewsModel {
         this.News = this.db.model('News', newsSchema, 'news');
     }
 
-    list() {
+    list(queryCallback) {
+        this.News.find({}, {'_id': 0}, function (err, docs) {
+            if (docs) {
+                let newsList = [];
+                docs.forEach(function (doc, index, array) {
+                    let timeUtl = new TimeUtl();
+                    // let createAgo = timeUtl.dayToNow(doc.createTime);
+                    // let updateAgo = timeUtl.dayToNow(doc.updateTime);
+                    let linkToText = "不关联";
+                    if(doc.type === "article"){
+                        linkToText = "博客";
+                    }else if(doc.type === "lab"){
+                        linkToText = "实验室";
+                    }
 
+                    let newsPiece = {
+                        no: doc.no,
+                        title: doc.title,
+                        date: {
+                            timeStamp: doc.timeStamp,
+                            formatted: TimeUtl.formatDate('/', doc.timeStamp)
+                        },
+                        abstract: doc.abstract,
+                        linkTo: {
+                            type: doc.type,
+                            text: linkToText,
+                            no: doc.linkNo
+                        },
+                        content: doc.abstract
+                        // createAgo: createAgo,
+                        // updateAgo: updateAgo
+                    };
+                    newsList.push(newsPiece);
+                });
+                queryCallback(newsList);
+            } else {
+                queryCallback();
+            }
+
+        });
     }
 
     precreate(type, queryCallback) {
@@ -114,8 +152,8 @@ class NewsModel {
 
     save(news, saveCallback) {
         let self = this;
-        console.log("\n model");
-        console.log(news);
+        // console.log("\n model");
+        // console.log(news);
         let piece = null;
         switch (news.type) {
             case "plain":
@@ -136,7 +174,7 @@ class NewsModel {
                     }
                 })
             }
-            piece.no = max + 1;
+            piece.no = news.no || max + 1;
             let data = piece.format();
             this.News.findOneAndUpdate({no: piece.no}, data, {upsert: true}, (err, doc) => {
                 if (err) {

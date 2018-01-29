@@ -14,7 +14,7 @@ block content
             ul
                 li(@click="create" class="news-item-panel news-item-create-panel") 添加+
 
-                li( v-for="news in newsList" )
+                li( v-for="news in list" )
                     news-abstract(:data='news')
         .col-xs-4#news-detail
             //div
@@ -42,7 +42,7 @@ block content
                 input(class="form-control" type="text" v-model="title")
             .input-group
                 span(class="input-group-addon") 新闻时间
-                input(id="date" class="form-control" type="text" v-model="date.formated")
+                input(id="date" class="form-control" type="text" v-model="format()")
             br
             textarea(v-model="content")
             br
