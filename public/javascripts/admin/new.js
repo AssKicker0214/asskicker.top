@@ -9,10 +9,10 @@ var selected = new Vue({
     el: "#news-detail",
     data: {
         title: "",
-        imgUrl: "",
+        imgName: "",
         linkTo: {
             text: "不关联",
-            type: "none",
+            type: "plain",
             no: ""
         },
         date: {
@@ -31,8 +31,39 @@ var selected = new Vue({
     },
     methods:{
         save: function () {
-            
+            var newsObj = {
+                title: this.title,
+                abstract: this.content,
+                linkNo: this.linkTo.no,
+                type: this.linkTo.type,
+                time: this.timeStamp,
+                posterName: this.imgName
+            };
+            $.ajax({
+                url: "/admin/news/save",
+                type: "post",
+                data: newsObj,
+                dataType: "json",
+                success: function (res) {
+                    console.info(res);
+                },
+                error: function (err) {
+                    console.error(err);
+                }
+            })
         },
+
+        selectType: function (type) {
+            this.linkTo.type = type;
+            if(type === "plain"){
+                this.linkTo.text = "不关联";
+            }else if(type === "article"){
+                this.linkTo.text = "博客";
+            }else if(type === "lab"){
+                this.linkTo.text = "实验室"
+            }
+        },
+
         getTimeText: function () {
         }
     }
@@ -51,6 +82,8 @@ var selected = new Vue({
 
     }).on('fileuploaded', function (event, data, previewId, index) {
         // console.log(data.response.url);
+        var pathArray = data.response.url.split("/");
+        selected.imgName = pathArray[pathArray.length-1];
     });
 
     $('#date').datepicker({

@@ -6,10 +6,10 @@ let connectDB = require('../database');
 let mongoose = require('mongoose');
 let TimeUtl = require('../utls/timeUtl');
 
-class Piece{
-    constructor(){
+class Piece {
+    constructor() {
         this.no = null;
-        this.time = new TimeUtl().getCurrentTimeStamp();
+        this.timeStamp = new TimeUtl().getCurrentTimeStamp();
         this.title = null;
         this.abstract = null;
         this.linkNo = null;
@@ -17,18 +17,38 @@ class Piece{
         this.posterUrl = null;
     }
 
-    linkTo(linkNo){
+    setData(obj) {
+        this.setGeneral(obj.no, obj.title, obj.abstract, obj.posterName, obj.timeStamp)
+    }
+
+    setGeneral(no, title, abstract, posterName, timeStamp) {
+        this.no = no || this.no;
+        this.title = title || this.title;
+        this.abstract = abstract || this.abstract;
+        this.posterUrl = this.getPosterUrl(posterName) || this.posterUrl;
+        this.timeStamp = timeStamp || this.timeStamp;
+    }
+
+    getPosterUrl(posterName) {
+        if (posterName) {
+            return "/uploads/news-bg-img/" + posterName;
+        } else {
+            return false
+        }
+    }
+
+    linkTo(linkNo) {
         console.error("function 'linkTo' is not implemented");
     }
 
-    getType(){
+    getType() {
         console.error("function 'getType' is not implemented");
     }
 
-    format(){
+    format() {
         return {
             no: this.no,
-            time: this.time,
+            time: this.timeStamp,
             title: this.title,
             abstract: this.abstract,
             type: this.getType(),
@@ -39,27 +59,30 @@ class Piece{
     }
 }
 
-class PlainNews extends Piece{
+class PlainNews extends Piece {
 
-
-    linkTo(){
+    linkTo() {
         // nothing to link
     }
 
-    set(no, title, abstract, posterUrl){
-        this.no = no || this.no;
-        this.title = title || this.title;
-        this.abstract = abstract || this.abstract;
-        this.posterUrl = posterUrl || this.posterUrl;
-    }
-
-    getType(){
+    getType() {
         return "plain"
     }
 
 }
 
-class NewsModel{
+class ArticleNews extends Piece{
+    linkTo(no){
+        this.linkNo = no;
+        this.linkUrl = "/article/detail?no="+(no^0)
+    }
+
+    getType(){
+        return "article";
+    }
+}
+
+class NewsModel {
     constructor() {
         this.db = connectDB('app');
 
@@ -69,24 +92,42 @@ class NewsModel{
             title: String,
             abstract: String,
             type: String,
+
+            // 关联
             linkNo: Number,
             linkUrl: String,
+
+            // 背景图片链接
             posterUrl: String
         });
 
         this.News = this.db.model('News', newsSchema, 'news');
     }
 
-    list(){
+    list() {
 
     }
 
     precreate(type, queryCallback) {
+
+    }
+
+    save(news, saveCallback) {
+        let self = this;
+        console.log("\n model");
+        console.log(news);
         let piece = null;
-        switch (type){
-            case "plain": piece=new PlainNews(); break;
+        switch (news.type) {
+            case "plain":
+                piece = new PlainNews();
+                break;
+            case "article":
+                piece = new ArticleNews();
+                break;
         }
-        this.News.find({}, {no: 1}, function (err, docs) {
+        piece.setData(news);
+        piece.linkTo(news.linkNo);
+        this.News.find({}, {no: 1}, (err, docs) => {
             let max = 0;
             if (docs) {
                 docs.forEach(function (val, index, array) {
@@ -95,20 +136,17 @@ class NewsModel{
                     }
                 })
             }
-            piece.no = max+1;
-            queryCallback(max + 1);
+            piece.no = max + 1;
+            let data = piece.format();
+            this.News.findOneAndUpdate({no: piece.no}, data, {upsert: true}, (err, doc) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    saveCallback({result: true});
+                }
+            });
         });
-    }
 
-    save(news, saveCallback){
-        let data = news.format();
-        this.News.findOneAndUpdate({no: no}, data, {upsert: true}, function (err, doc) {
-            if (err) {
-                console.error(err);
-            } else {
-                saveCallback(new TimeUtl().getCurrentTimeString());
-            }
-        })
     }
 }
 

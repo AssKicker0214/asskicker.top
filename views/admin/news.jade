@@ -26,15 +26,15 @@ block content
                 // span(class="input-group-addon") 关联编号
                 input(class="form-control" type="text" v-model="linkTo.no")
                 .input-group-btn
-                    button(class="btn btn-primary dropdown-toggle" data-toggle="dropdown") 不关联&nbsp;
+                    button(class="btn btn-primary dropdown-toggle" data-toggle="dropdown") {{linkTo.text}}&nbsp;
                         span(class="caret")
                     ul(class="dropdown-menu")
                         li
-                            a 不关联
+                            a(@click="selectType('plain');") 不关联
                         li
-                            a 博客
+                            a(@click="selectType('article');") 博客
                         li
-                            a 实验室
+                            a(@click="selectType('lab');") 实验室
 
             br
             .input-group
