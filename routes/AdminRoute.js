@@ -134,4 +134,15 @@ router.post('/news/save', function (req, res) {
         res.json(rs);
     })
 });
+
+router.post('/news/remove', function (req, res) {
+    let news = req.body;
+    if(news.no){
+        newsModel.remove(news.no, function (rs) {
+            res.json(rs);
+        })
+    }else{
+        res.json({result: "nothing to remove"})
+    }
+});
 module.exports = router;

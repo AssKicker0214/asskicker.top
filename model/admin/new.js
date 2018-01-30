@@ -84,7 +84,7 @@ class ArticleNews extends Piece{
 
 class NewsModel {
     constructor() {
-        this.db = connectDB('app');
+        this.db = connectDB('app', "新闻模块数据库连接打开");
 
         let newsSchema = mongoose.Schema({
             no: Number,
@@ -148,6 +148,19 @@ class NewsModel {
 
     precreate(type, queryCallback) {
 
+    }
+
+    remove(no, removeCallback){
+        // console.log(no);
+        this.News.findOneAndRemove({no: no},{}, (err, doc)=>{
+            // console.log(doc);
+            if(err){
+                // console.log("??");
+                removeCallback({result: "删除失败"});
+            }else{
+                removeCallback({result: "已删除no="+no});
+            }
+        });
     }
 
     save(news, saveCallback) {

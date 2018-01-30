@@ -14,7 +14,7 @@ block content
             ul
                 li(@click="create" class="news-item-panel news-item-create-panel") 添加+
 
-                li( v-for="news in list" )
+                li(@click="select(news);" v-for="news in list" )
                     news-abstract(:data='news')
         .col-xs-4#news-detail
             //div
@@ -49,7 +49,8 @@ block content
             input(id="bg-img" name="bg-img" class="form-control file" data-msg-placeholder="选择背景图片" data-allowed-file-extensions='["jpg", "png"]' type="file")
             hr
             news-abstract(:data="this")
-            button(@click="save" class="btn btn-primary" v-bind:class="{disable: disableSave}") {{action}}
+            button(@click="save" class="btn btn-primary" v-bind:class="{disable: disableSave}") {{saveAction}}
+            button(@click="remove" class="btn btn-danger" v-bind:class="{disable: disableRemove}") {{removeAction}}
         .col-xs-5#article-list
             ul
                 li(v-for="article in articleList" class="article-list-panel")

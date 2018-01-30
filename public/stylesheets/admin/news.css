@@ -107,8 +107,10 @@ ul {
     overflow-x: hidden;
 }
 #news-detail>button{
-    position: absolute;
-    bottom: 0;
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    position: relative;
+    margin: 0 auto;
 }
 #news-detail>textarea{
     height: 15%;
