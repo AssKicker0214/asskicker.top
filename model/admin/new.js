@@ -138,6 +138,7 @@ class NewsModel {
                     };
                     newsList.push(newsPiece);
                 });
+                newsList.sort((obj1, obj2)=>obj2.date.timeStamp-obj1.date.timeStamp);
                 queryCallback(newsList);
             } else {
                 queryCallback();
