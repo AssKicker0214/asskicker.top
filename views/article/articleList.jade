@@ -10,15 +10,29 @@ block content
 
     include ../common/nav
     //div #{list[0].no}
-    ul
+    ul(class="article-list")
         each item in list
             li
                 article(class='panel panel-default')
                     div(class='title')
-                        a(href='/article/detail?no=#{item.no}')
-                            h2 #{item.title}
-                            small #{item.createAgo.value} #{item.createAgo.unit}&nbsp;
-                    a(href='/admin/article/edit?no=#{item.no}' class="btn btn-sm btn-success glyphicon glyphicon-pencil") &nbsp;编辑
+                        //a(href='/article/detail?no=#{item.no}')
+                        //    h3 #{item.title}
+                        //    small #{item.createAgo.value} #{item.createAgo.unit}&nbsp;
+                        //    a(href='/admin/article/edit?no=#{item.no}' class='edit-btn glyphicon glyphicon-pencil')
+                        h3
+                            a(href='/article/detail?no=#{item.no}') #{item.title}
+                            &nbsp;&nbsp;
+                            small
+                                a(href='/admin/article/edit?no=#{item.no}' class='edit-btn glyphicon glyphicon-edit')
+                        small #{item.createAgo.value} #{item.createAgo.unit}&nbsp;
+                    ul(class="keyword-list")
+                        //li 关键字:
+                        li(class="label" style='color: #d4a7a0; margin-right: 0.5em; background-color: transparent')
+                            span(class="glyphicon glyphicon-tags")
+                        each kw in item.keywords
+                            li(class="label label-keyword") #{kw.keyword}
+
+                    //a(href='/admin/article/edit?no=#{item.no}' class="btn btn-sm btn-success glyphicon glyphicon-pencil") &nbsp;编辑
 
     script.
         nav.activate('Blog');
