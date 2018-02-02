@@ -53,6 +53,10 @@ article small {
     background-color: #448c98;
 }
 
+.time-ago{
+    color: #9592a9;
+}
+
 body {
     background: linear-gradient(to bottom right, #6f6c98, #806258);
     background: -webkit-linear-gradient(left top, #6f6c98, #806258); /* Safari 5.1 - 6.0 */

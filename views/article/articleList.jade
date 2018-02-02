@@ -24,7 +24,7 @@ block content
                             span &nbsp;&nbsp;
                             small
                                 a(href='/admin/article/edit?no=#{item.no}' class='edit-btn glyphicon glyphicon-edit')
-                        small #{item.createAgo.value} #{item.createAgo.unit}&nbsp;
+                        small(class='time-ago') #{item.createAgo.value} #{item.createAgo.unit}&nbsp;
                     ul(class="keyword-list")
                         //li 关键字:
                         li(class="label" style='color: #d4a7a0; margin-right: 0.5em; background-color: transparent')
