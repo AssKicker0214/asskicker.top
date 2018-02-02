@@ -21,7 +21,7 @@ block content
                         //    a(href='/admin/article/edit?no=#{item.no}' class='edit-btn glyphicon glyphicon-pencil')
                         h3
                             a(href='/article/detail?no=#{item.no}') #{item.title}
-                            &nbsp;&nbsp;
+                            span &nbsp;&nbsp;
                             small
                                 a(href='/admin/article/edit?no=#{item.no}' class='edit-btn glyphicon glyphicon-edit')
                         small #{item.createAgo.value} #{item.createAgo.unit}&nbsp;
