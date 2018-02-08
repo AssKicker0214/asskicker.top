@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 22px;">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+    <script src="/lib/jquery/dist/jquery.js"></script>
+    <script src="/lib/marked/marked.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/resume/resumark.js"></script>
+</head>
+<body>
+<div class="row" style="height: 100vh; overflow-y:auto;">
+    <div class="col-xs-6">
+        <textarea id="input" style="height: 100vh;width: 100%;"></textarea>
+    </div>
+    <div id="rendered" class="col-xs-6"></div>
+</div>
+
+<script>
+    $("#input").on("keyup", function () {
+//        $("#rendered").html(marked(this.value));
+        resumark.parser.parse(this.value);
+
+        $("#rendered").html(resumark.parser.html);
+    })
+</script>
+</body>
+</html>
+<!---->
