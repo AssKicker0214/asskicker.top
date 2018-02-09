@@ -10,20 +10,41 @@
     <script src="/resume/resumark.js"></script>
 </head>
 <body>
-<div class="row" style="height: 100vh; overflow-y:auto;">
-    <div class="col-xs-6">
-        <textarea id="input" style="height: 100vh;width: 100%;"></textarea>
-    </div>
-    <div id="rendered" class="col-xs-6"></div>
-</div>
 
+<!--<div style="height: 100vh; overflow-y:auto;">-->
+<div>
+    <textarea id="input" style="height: 20vh;width: 100%;"></textarea>
+</div>
+<div id="rendered" style="width: 210mm; height: 297mm;"></div>
+<!--</div>-->
+<iframe id="pdf-frame" style="height: 100vh; width: 100%;"></iframe>
+<button id="pdf-btn" class="btn btn-primary" style="position: fixed;top: 50%;left: 50%;">pdf</button>
+<!--<script src="/lib/jspdf/jspdf.debug.js"></script>-->
+<!--<script src="/lib/jspdf/html2pdf.js"></script>-->
 <script>
     $("#input").on("keyup", function () {
-//        $("#rendered").html(marked(this.value));
-        resumark.parser.parse(this.value);
+        var rendered = resumark.parser.parse(this.value);
+        $("#rendered").html(rendered);
+    });
 
-        $("#rendered").html(resumark.parser.html);
-    })
+    $("#pdf-btn").on('click', function () {
+//        var pdf = new jsPDF('p', 'pt', 'a4');
+//        html2pdf($("#rendered").html(), pdf, function (pdf) {
+//                document.getElementById("pdf-frame").src = pdf.output('datauristring');
+//                console.log(pdf.output('datauristring'))
+//            }
+//        );
+        $.ajax({
+            url: "/lab/resumark/html-pdf",
+            type: "POST",
+            dataType: "application/pdf",
+            data: {html: $("#rendered").html()},
+            success: function (res) {
+                console.log(res);
+            }
+        })
+
+    });
 </script>
 </body>
 </html>
