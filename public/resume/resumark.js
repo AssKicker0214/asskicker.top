@@ -16,11 +16,21 @@ var resumark = {};
     var rules = {
         cmd: /^; /,
         mount: /^; mount=(\w*)/,
+        hr: /^-{3,}/,
         ability: /^\[(.+)](=+_*)(\((.*)\))?/,
         header: /^(#+)\s+(.+)$/,
-        blockquote: /^> (.*)/
+        blockquote: /^> (.*)/,
+
+        inline: {
+            lineThrough: /~~([^~]+)~~/g,
+            lineUnder: /__([^_]+)__/g,
+            // boldAndItalic: /\*{3}([^*]+)\*{3}/g,
+            bold: /\*{2}([^*]+)\*{2}/g,
+            italic: /\*([^*]+)\*/g,
+        }
     };
 
+    // 🏆d
     var parser = {
         // renderer: new Renderer(),
         lexer: new Lexer(),
@@ -60,13 +70,22 @@ var resumark = {};
 
             var stmt;
             this.builder = new Builder(new TestLayout());
-            while (stmt = nextStmt()) {
-                // console.log(stmt);
-                // var builder = new Paragraph(stmt);
+            while ((stmt = nextStmt()) !== false) {
+                this.log(stmt);
+                stmt = this.lexer.inline(stmt);
+
                 var tmp = null;
                 if ((tmp = this.lexer.mount(stmt)) !== false) {
                     this.log("-> mounting to "+tmp);
                     this.builder.mount(tmp);
+                    continue;
+                }
+                if((tmp = this.lexer.break(stmt)) !== false){
+                    this.builder.push(tmp);
+                    continue;
+                }
+                if((tmp = this.lexer.hr(stmt)) !== false){
+                    this.builder.push(tmp);
                     continue;
                 }
                 if ((tmp = this.lexer.ability(stmt)) !== false) {
@@ -211,6 +230,13 @@ p {
     word-break: break-all;
 }
 
+.line-through{
+    text-decoration-line: line-through;
+}
+.line-under{
+    text-decoration-line: underline;
+}
+
 .ability {
     position: relative;
 }
@@ -250,6 +276,17 @@ p {
     }
 
     function Lexer() {
+
+        this.inline = function (stmt) {
+            var rendered = stmt
+                // .replace(rules.inline.boldAndItalic, "<b><i>$1</i></b>")
+                .replace(rules.inline.bold, "<b>$1</b>")
+                .replace(rules.inline.italic, "<i>$1</i>")
+                .replace(rules.inline.lineThrough, "<span class='line-through'>$1</span>")
+                .replace(rules.inline.lineUnder, "<span class='line-under'>$1</span>")
+            return rendered;
+        };
+
         this.cmd = function (stmt) {
             if (rules.cmd.test(stmt)) {
                 console.log(stmt);
@@ -262,6 +299,22 @@ p {
         this.mount = function (stmt) {
             if (rules.mount.test(stmt)){
                 return stmt.match(rules.mount)[1];
+            }else{
+                return false;
+            }
+        };
+
+        this.break = function (stmt) {
+            if(stmt === ""){
+                return new Break();
+            }else{
+                return false;
+            }
+        };
+
+        this.hr = function (stmt) {
+            if(rules.hr.test(stmt)){
+                return new HorizontalRule();
             }else{
                 return false;
             }
@@ -296,6 +349,18 @@ p {
             } else {
                 return false;
             }
+        }
+    }
+
+    function Break() {
+        this.render = function () {
+            return "<br />";
+        }
+    }
+
+    function HorizontalRule() {
+        this.render = function () {
+            return "<hr />";
         }
     }
 
