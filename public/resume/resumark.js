@@ -15,7 +15,7 @@ var resumark = {};
 
     var rules = {
         cmd: /^; /,
-        mount: /^; mount=(\w*)/,
+        mount: /^; (\w*)/,
         hr: /^-{3,}/,
         ability: /^\[(.+)](=+_*)(\((.*)\))?/,
         header: /^(#+)\s+(.+)$/,
@@ -27,6 +27,10 @@ var resumark = {};
             // boldAndItalic: /\*{3}([^*]+)\*{3}/g,
             bold: /\*{2}([^*]+)\*{2}/g,
             italic: /\*([^*]+)\*/g,
+        },
+
+        multiline: {
+            panel: /(^|\n)```\n([^(:?```)]*)```($|\n)/g,
         }
     };
 
@@ -54,6 +58,9 @@ var resumark = {};
             this.stmts = src.split("\n");
         },
         parse: function (src) {
+            // process multiline
+            src = this.lexer.panel(src);
+
             var self = this;
             self.split(src);
             var _i = 0;
@@ -124,8 +131,13 @@ var resumark = {};
         // this.components = [new GlobalStyle()];
         this.layout = layout || new BasicLayout();
         this.mountPoint = this.layout.getMountPoint();
+        this.multilineContainer = null;
         this.push = function (itm) {
-            this.mountPoint.push(itm);
+            // if(this.multilineContainer){
+            //     this.multilineContainer.push(itm);
+            // }else{
+                this.mountPoint.push(itm);
+            // }
         };
         this.isEmpty = function () {
             // return this.components.length === 0;
@@ -139,7 +151,14 @@ var resumark = {};
         };
         this.mount = function (area) {
             this.mountPoint = this.layout.getMountPoint(area);
-        }
+        };
+        // this.createMultilineContainer = function (mc) {
+        //     this.mountPoint.push(mc);
+        //     this.multilineContainer = mc;
+        // };
+        // this.endMultilineContainer = function () {
+        //     this.multilineContainer = null;
+        // }
     }
 
 
@@ -270,12 +289,18 @@ p {
     background-size: 40px 40px;
     background-color: #5cb85c;
 }
+    .panel{
+        padding: 5pt 10pt;
+        border-radius: 5px;
+        box-shadow: 0 1pt 5pt darkgrey;
+    }
 </style>
             `
         }
     }
 
     function Lexer() {
+        // this.inPanel = false;
 
         this.inline = function (stmt) {
             var rendered = stmt
@@ -349,6 +374,17 @@ p {
             } else {
                 return false;
             }
+        };
+
+        // 多行匹配
+        this.panel = function (src) {
+            console.log(src);
+            if (rules.multiline.panel.test(src)){
+                return src.replace(rules.multiline.panel, "$1<div class='panel'>\n$2</div>$3");
+            }else{
+                console.log("not panel");
+                return src;
+            }
         }
     }
 
@@ -418,6 +454,23 @@ p {
             return `<blockquote>${this.text}</blockquote>`;
         }
     }
+
+    // function MultilineContainer() {
+    //     this.components = [];
+    //     this.buildComponents = function () {
+    //         return this.components.map(b => b.render()).reduce((b1, b2) => b1 + "\n" + b2);
+    //     };
+    //     this.push = function (itm) {
+    //         this.components.push(itm)
+    //     }
+    // };
+
+    // function Panel() {
+    //     this.build = function () {
+    //         return `<div class="well">${this.buildComponents()}</div>`;
+    //     }
+    // }
+    // Panel.prototype = new MultilineContainer();
 
     resumark.parser = parser;
 })();
