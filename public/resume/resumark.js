@@ -5,13 +5,14 @@ var resumark = {};
 (function () {
     var LayoutPrototype = {
         joint: function (components) {
-            if(components && components.length && components.length>0){
+            if (components && components.length && components.length > 0) {
                 return components.map(b => b.render()).reduce((b1, b2) => b1 + "\n" + b2);
-            }else{
+            } else {
                 return components;
             }
-        }
+        },
     };
+    resumark.LayoutPrototype = LayoutPrototype;
 
     var rules = {
         cmd: /^; /,
@@ -44,12 +45,13 @@ var resumark = {};
             code: false
         },
         builder: null,//new Builder(new TestLayout()),
+        LayoutConstructor: BasicLayout,
         html: "<!--resumark, has not been built-->",
 
         debug: true,
 
-        useLayout: function (layout) {
-
+        useLayout: function (LayoutConstructor) {
+            this.LayoutConstructor = LayoutConstructor;
         },
 
         split: function (src) {
@@ -76,22 +78,22 @@ var resumark = {};
             };
 
             var stmt;
-            this.builder = new Builder(new TestLayout());
+            this.builder = new Builder(new this.LayoutConstructor());
             while ((stmt = nextStmt()) !== false) {
                 this.log(stmt);
                 stmt = this.lexer.inline(stmt);
 
                 var tmp = null;
                 if ((tmp = this.lexer.mount(stmt)) !== false) {
-                    this.log("-> mounting to "+tmp);
+                    this.log("-> mounting to " + tmp);
                     this.builder.mount(tmp);
                     continue;
                 }
-                if((tmp = this.lexer.break(stmt)) !== false){
+                if ((tmp = this.lexer.break(stmt)) !== false) {
                     this.builder.push(tmp);
                     continue;
                 }
-                if((tmp = this.lexer.hr(stmt)) !== false){
+                if ((tmp = this.lexer.hr(stmt)) !== false) {
                     this.builder.push(tmp);
                     continue;
                 }
@@ -136,7 +138,7 @@ var resumark = {};
             // if(this.multilineContainer){
             //     this.multilineContainer.push(itm);
             // }else{
-                this.mountPoint.push(itm);
+            this.mountPoint.push(itm);
             // }
         };
         this.isEmpty = function () {
@@ -162,7 +164,6 @@ var resumark = {};
     }
 
 
-    
     function BasicLayout() {
         this.root = [new GlobalStyle()];
         this.getMountPoint = function (area) {
@@ -195,116 +196,128 @@ ${rootContent}
         };
         this.getMountPoint = function (area) {
             var mountPoint = this.root;
-            if(area === 'left'){
+            if (area === 'left') {
                 mountPoint = this.left;
                 console.log("-> return 'left' mp")
-            }else if(area === 'right'){
+            } else if (area === 'right') {
                 mountPoint = this.right;
                 console.log("-> return 'right' mp")
-            }else{
+            } else {
                 console.log("-> return 'root' mp");
             }
             return mountPoint;
         }
     }
+
     TestLayout.prototype = LayoutPrototype;
 
     function GlobalStyle() {
         this.render = function () {
             //language=HTML
             return `
-<style>
+                <style>
 
-/* 不支持flex布局 */
-html {
-    font-size: 16pt;
-}
-h1 {
-    font-size: 44pt;
-}
-h2 {
-    font-size: 38pt;
-}
-h3 {
-    font-size: 34pt;
-}
-h4 {
-    font-size: 30pt;
-}
-h5 {
-    font-size: 28pt;
-}
-h6 {
-    font-size: 24pt;
-}
-blockquote {
-    border-left: #8157ff solid 3pt;
-    background-color: rgba(100, 100, 100, .1);
-    font-style: italic;
-    padding: 5pt;
-    word-break: break-all;
-}
+                    /* 不支持flex布局 */
+                    html {
+                        font-size: 16pt;
+                    }
 
-p {
-    word-break: break-all;
-}
+                    h1 {
+                        font-size: 44pt;
+                    }
 
-.line-through{
-    text-decoration-line: line-through;
-}
-.line-under{
-    text-decoration-line: underline;
-}
+                    h2 {
+                        font-size: 38pt;
+                    }
 
-.ability {
-    position: relative;
-}
+                    h3 {
+                        font-size: 34pt;
+                    }
 
-.ability-name {
-    position: relative;
+                    h4 {
+                        font-size: 30pt;
+                    }
 
-}
+                    h5 {
+                        font-size: 28pt;
+                    }
 
-.ability-remark {
-    position: absolute;
-    right: 0;
-    text-align: right;
-}
+                    h6 {
+                        font-size: 24pt;
+                    }
 
-.measure {
-    height: 10pt;
-    margin-bottom: 20pt;
-    overflow: hidden;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
-}
-.measurebar {
-    height: 100%;
-    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-    -webkit-background-size: 40px 40px;
-    background-size: 40px 40px;
-    background-color: #5cb85c;
-}
-    .panel{
-        padding: 5pt 10pt;
-        border-radius: 5px;
-        box-shadow: 0 1pt 5pt darkgrey;
-    }
-</style>
+                    blockquote {
+                        border-left: #8157ff solid 3pt;
+                        background-color: rgba(100, 100, 100, .1);
+                        font-style: italic;
+                        padding: 5pt;
+                        word-break: break-all;
+                    }
+
+                    p {
+                        word-break: break-all;
+                    }
+
+                    .line-through {
+                        text-decoration-line: line-through;
+                    }
+
+                    .line-under {
+                        text-decoration-line: underline;
+                    }
+
+                    .ability {
+                        position: relative;
+                    }
+
+                    .ability-name {
+                        position: relative;
+
+                    }
+
+                    .ability-remark {
+                        position: absolute;
+                        right: 0;
+                        text-align: right;
+                    }
+
+                    .measure {
+                        height: 10pt;
+                        margin-bottom: 20pt;
+                        overflow: hidden;
+                        background-color: #f5f5f5;
+                        border-radius: 4px;
+                        -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+                        box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+                    }
+
+                    .measurebar {
+                        height: 100%;
+                        background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                        background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                        background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+                        -webkit-background-size: 40px 40px;
+                        background-size: 40px 40px;
+                        background-color: #5cb85c;
+                    }
+
+                    .panel {
+                        padding: 5pt 10pt;
+                        border-radius: 5px;
+                        box-shadow: 0 1pt 5pt darkgrey;
+                    }
+                </style>
             `
         }
     }
+    resumark.GlobalStyle = GlobalStyle;
 
     function Lexer() {
         // this.inPanel = false;
 
         this.inline = function (stmt) {
             var rendered = stmt
-                // .replace(rules.inline.boldAndItalic, "<b><i>$1</i></b>")
+            // .replace(rules.inline.boldAndItalic, "<b><i>$1</i></b>")
                 .replace(rules.inline.bold, "<b>$1</b>")
                 .replace(rules.inline.italic, "<i>$1</i>")
                 .replace(rules.inline.lineThrough, "<span class='line-through'>$1</span>")
@@ -314,7 +327,7 @@ p {
 
         this.cmd = function (stmt) {
             if (rules.cmd.test(stmt)) {
-                console.log(stmt);
+                // console.log(stmt);
                 return stmt;
             } else {
                 return false
@@ -322,25 +335,25 @@ p {
         };
 
         this.mount = function (stmt) {
-            if (rules.mount.test(stmt)){
+            if (rules.mount.test(stmt)) {
                 return stmt.match(rules.mount)[1];
-            }else{
+            } else {
                 return false;
             }
         };
 
         this.break = function (stmt) {
-            if(stmt === ""){
+            if (stmt === "") {
                 return new Break();
-            }else{
+            } else {
                 return false;
             }
         };
 
         this.hr = function (stmt) {
-            if(rules.hr.test(stmt)){
+            if (rules.hr.test(stmt)) {
                 return new HorizontalRule();
-            }else{
+            } else {
                 return false;
             }
         };
@@ -378,11 +391,11 @@ p {
 
         // 多行匹配
         this.panel = function (src) {
-            console.log(src);
-            if (rules.multiline.panel.test(src)){
+            // console.log(src);
+            if (rules.multiline.panel.test(src)) {
                 return src.replace(rules.multiline.panel, "$1<div class='panel'>\n$2</div>$3");
-            }else{
-                console.log("not panel");
+            } else {
+                // console.log("not panel");
                 return src;
             }
         }
