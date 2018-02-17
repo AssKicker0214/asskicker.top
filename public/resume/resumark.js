@@ -28,6 +28,10 @@ var resumark = {};
             // boldAndItalic: /\*{3}([^*]+)\*{3}/g,
             bold: /\*{2}([^*]+)\*{2}/g,
             italic: /\*([^*]+)\*/g,
+            image: /!\[(.+)]\((.*)\)(?:((?:\d*\.)?\d+)x((?:\d*\.)?\d+))?/g,
+            link: /\[(.+)]\((.+)\)/g,
+            tab: /\\t/g,
+            space: /\\s/g
         },
 
         multiline: {
@@ -48,7 +52,7 @@ var resumark = {};
         LayoutConstructor: BasicLayout,
         html: "<!--resumark, has not been built-->",
 
-        debug: true,
+        debug: false,
 
         useLayout: function (LayoutConstructor) {
             this.LayoutConstructor = LayoutConstructor;
@@ -219,34 +223,61 @@ ${rootContent}
 
                     /* 不支持flex布局 */
                     html {
-                        font-size: 16pt;
+                        /*font-size: 18pt;*/
+                        /*font-family: "Microsoft YaHei", 'SimHei', serif;*/
+                    }
+
+                    #rendered {
+
+                        font-size: 18pt;
+                        font-family: "Microsoft YaHei", 'SimHei', serif;
+                    }
+
+                    #rendered a {
+                        /*text-decoration: none;*/
+                        color: #13174c;
+                        font-weight: bolder;
                     }
 
                     h1 {
-                        font-size: 44pt;
+                        font-size: 96px;
+                        margin-bottom: 20px;
+                        margin-top: 10px;
+                        /*font-size: 72pt;*/
                     }
 
                     h2 {
-                        font-size: 38pt;
+                        margin-bottom: 20px;
+                        margin-top: 10px;
+                        font-size: 54pt;
                     }
 
                     h3 {
-                        font-size: 34pt;
+                        margin-bottom: 20px;
+                        margin-top: 10px;
+                        font-size: 36pt;
                     }
 
                     h4 {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
                         font-size: 30pt;
                     }
 
                     h5 {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
                         font-size: 28pt;
                     }
 
                     h6 {
+                        margin-bottom: 10px;
+                        margin-top: 10px;
                         font-size: 24pt;
                     }
 
                     blockquote {
+                        font-size: 22pt;
                         border-left: #8157ff solid 3pt;
                         background-color: rgba(100, 100, 100, .1);
                         font-style: italic;
@@ -256,6 +287,7 @@ ${rootContent}
 
                     p {
                         word-break: break-all;
+                        font-size: 18pt;
                     }
 
                     .line-through {
@@ -322,6 +354,10 @@ ${rootContent}
                 .replace(rules.inline.italic, "<i>$1</i>")
                 .replace(rules.inline.lineThrough, "<span class='line-through'>$1</span>")
                 .replace(rules.inline.lineUnder, "<span class='line-under'>$1</span>")
+                .replace(rules.inline.image, "<img src='$2' alt='$1' width='$3' height='$4'>")
+                .replace(rules.inline.link, "<a href='$2'>$1</a>")
+                .replace(rules.inline.tab, "&nbsp;&nbsp;&nbsp;&nbsp;")
+                .replace(rules.inline.space, "&nbsp;")
             return rendered;
         };
 
@@ -457,7 +493,7 @@ ${rootContent}
         this.text = text || '';
 
         this.render = function () {
-            return `<p style="font-size: 20px;">${this.text}</p>`;
+            return `<p>${this.text}</p>`;
         }
     }
 
@@ -465,6 +501,16 @@ ${rootContent}
         this.text = text || "";
         this.render = function () {
             return `<blockquote>${this.text}</blockquote>`;
+        }
+    }
+    
+    function Image(src, alt, width, height) {
+        this.src = src;
+        this.alt = alt;
+        this.width = width || 50;
+        this.height = height || 50;
+        this.render = function () {
+            return `<img src="${src}" alt="${alt}" width="${this.width}" height="${this.height}">`;
         }
     }
 

@@ -1,11 +1,12 @@
 /**
  * Created by ian0214 on 18/1/2.
  */
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 let request = require('request');
 let fs = require('fs');
 let pdf = require('html-pdf');
+let iputl = require('../model/utls/IPUtility');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -31,23 +32,44 @@ router.post('/resumark/convert2pdf', function (req, res) {
         // console.log(arguments);
         console.log(body);
         fs.writeFile("./test.pdf", body, function () {
-            
         });
         res.json({res: body});
     });
 });
 
 router.post('/resumark/html-pdf', function (req, res) {
+    let ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
     let html = req.body.html;
     let conf = {
         format: 'A4',
-
+        border: {
+            top: '0cm',
+            left: '0px',
+            bottom: '0cm',
+            right: '0cm'
+        }
     };
-    fs.unlinkSync("./demo.pdf");
-    pdf.create(html, conf).toFile("./demo.pdf", function(err, response){
-        console.log(response.filename);
-        res.send("ok");
-    });
+    let pdfName = "ip"+ip.replace(/:/g,"-")+".pdf";
+    let pdfPath = "public/downloads/resumark/"+pdfName;
+
+    // extremely ugly
+    if(fs.existsSync(pdfPath)){
+        fs.unlink(pdfPath, function () {
+            pdf.create(html, conf).toFile(pdfPath, function(err, response){
+                // console.log(response.filename);
+                res.json({url: "/downloads/resumark/"+pdfName});
+            });
+        })
+    }else{
+        pdf.create(html, conf).toFile(pdfPath, function(err, response){
+            // console.log(response.filename);
+            res.json({url: "/downloads/resumark/"+pdfName});
+        });
+    }
+    // if(fs.existsSync(pdfPath)){
+    //     fs.unlinkSync(pdfPath);
+    // }
+
     // pdf.create(html).toBuffer(function (err, buffer) {
     //     if(err) console.error(err);
     //     res.send(buffer);

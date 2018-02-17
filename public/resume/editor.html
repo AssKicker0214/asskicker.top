@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 22px;">
+<head>
+    <meta charset="UTF-8">
+    <title>editor</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+    <script src="/lib/jquery/dist/jquery.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/resume/resumark.js"></script>
+    <script src="/resume/layout.js"></script>
+</head>
+<body>
+<div style="height: 80vh; overflow-y:auto; background-color: lightgray">
+    <div id="rendered" style="zoom: 0.55; width: 1600px; height: 2000px;background-color: snow; margin: 0 auto"></div>
+</div>
+<div style="height: 20vh">
+    <textarea id="input" style="height: 100%;width: 100%;"></textarea>
+</div>
+<div style="position: fixed; top: 20px; right: 20px;">
+    <button id="pdf-btn" class="btn btn-primary">pdf</button>
+    <a id="download-btn" role="button" target="_blank" class="btn btn-primary disabled">download</a>
+</div>
+<script>
+    $("#input").on("keyup", function () {
+        var parser = resumark.parser;
+        parser.useLayout(BorderLayout);
+        var rendered = parser.parse(this.value);
+        $("#rendered").html(rendered);
+    });
+
+    $("#pdf-btn").on('click', function () {
+        var self = $("#pdf-btn");
+        self.addClass("disabled");
+        self.text("converting");
+        $.ajax({
+            url: "/lab/resumark/html-pdf",
+            type: "POST",
+//            dataType: "application/json",
+            data: {html: $("#rendered").html()},
+            success: function (res) {
+                $("#download-btn").prop("href", res.url);
+                $("#download-btn").removeClass("disabled");
+                console.log(res);
+            },
+            error: function (res, ts, et) {
+                console.error(et);
+            },
+            complete: ()=>{
+                self.removeClass("disabled");
+                self.text("pdf");
+            }
+        })
+
+    });
+</script>
+</body>
+</html>
