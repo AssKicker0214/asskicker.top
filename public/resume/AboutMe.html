@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 22px;">
+<head>
+    <meta charset="UTF-8">
+    <title>editor</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+    <script src="/lib/jquery/dist/jquery.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/resume/resumark.js"></script>
+    <script src="/resume/layout.js"></script>
+</head>
+<body>
+<div style="background-color: lightgray">
+    <div id="rendered" style="zoom: 0.55;overflow:hidden; width: 1600px; height: 2263px; background-color: snow; margin: 0 auto"></div>
+</div>
+<div id="tool" class="row" style="height: 20vh; position: fixed; bottom: 0; width: 100%; background-color: transparent">
+    <textarea class="col-xs-11" id="input" style="height: 100%;"></textarea>
+    <div class="col-xs-1" style="height: 100%; padding: 0;">
+        <div id="drag" style="height: 50%; text-align: center; background-color: #2d8f6f">DRAG</div>
+        <div id="disappear" style="height: 50%; text-align: center">DISAPPEAR</div>
+    </div>
+</div>
+<div style="position: fixed; top: 20px; right: 20px;">
+    <button id="pdf-btn" class="btn btn-primary">pdf</button>
+    <a id="download-btn" role="button" target="_blank" class="btn btn-primary disabled">download</a>
+</div>
+<script>
+    var content = `; portrait
+![pipboy](/resources/images/pip-boy/pip-boy-1.jpg)200x220
+; north
+# 姓名
+**手机**：17373737373          \\t\\t\\t\\t\\s\\s **Q\\sQ**：1212121212 \\t\\t\\t\\t\\s **个人主页**：[asskicker.top](http://101.132.40.25/welcome)
+**邮箱**：anyone@gmail.com      \\t\\t **微信**：my-wechat
+; west
+### 基本信息
+---
+\`\`\`
+**性别**：男       \\t\\t\\t\\t\\t**年龄**： 23 \\t\\t\\t\\t**所在地**：南京
+\`\`\`
+**自我介绍**：我正在使用 __**resumark**__ 进行简历编辑，这是一款十分快捷的简历编辑工具，无需繁琐的office功能，甚至无需鼠标操作，只使用键盘就可以写出一份漂亮的简历。resumark只使用一些简单的字符就可以生成样式，如同**markdown** （实际上正是参考了它）。所以如果你熟悉markdown语法，保证在***5分钟*** 内学会使用；如果不知道什么是markdown，也没有关系。后续我将提供完整的[使用手册](/).
+---
+当然，你也可以通过右上角的**pdf按钮**来生成供打印的pdf文件，然后点击**download按钮**来下载。*不过请注意效果可能会有一些差别*
+
+### 教育经历
+---
+> 2013-2017 \\s\\s\\s\\t\\t **南京大学·软件学院** \\t\\t 学士
+> 2017-至今 \\t\\t\\t **南京大学·软件学院** \\t\\t 硕士
+**修读课程**：数据结构、操作系统、软件工程与计算、计算机网络还有各种乱七八糟的课程
+**技术方向**：数据挖掘、云计算、机器学习
+
+### 拿手好戏
+---
+[python]===_
+[javascript]====_(+nodejs)
+[mongodb]===__
+[spark]=_(+hadoop)
+[java]===_
+[php]=_
+[web开发]======_(+express +html +css)
+; east
+### 实习经历
+---
+\`\`\`
+**年/月/日**  \\t\\t\\t\\t\\t **地点**  \\t\\t\\t\\t\\t**职位**
+**工作内容**：端茶倒水？
+
+\`\`\`
+
+\`\`\`
+
+
+
+\`\`\`
+
+\`\`\`
+
+
+
+\`\`\`
+
+### 嘿！这里是一些补充说明
+---
+> 这个示例已经包含了几乎所有可用的元素，列举如下：**图片**、**标题**（如姓名部分）、**面板**（如实习经历的每一项）、**引用**（如教育经历中的那两项）、**技能条**、**水平分割线**，当然还有**加粗**、**加斜**、~~**删除**（就像这样）~~、__**下划线**__、**缩进**（\\+s和\\+t），**超链接**
+> 除此之外，还有一种特殊的命令，**用来管理布局**（layout）。比如这个示例使用的是 **BorderLayout**，**"; north"** 命令指定了最上面的彩色区域；**; west**和**; east**形成了两栏布局；**; south**则在最下方。\\t\\t\\t\\t**; portrait**专门用来布局图片，也就是左上角的大头照
+> 目前还有很多不成熟的地方，比如**pdf生成非常慢**（我的服务器性能太差了），效果也和预览差一些。我会尽量修正，但有些bug源自我依赖的库，所以......
+
+; south
+---
+##### asskicker.top
+demo
+    `
+</script>
+<script>
+    var parser = resumark.parser;
+    parser.useLayout(BorderLayout);
+    $("#input").on("keyup", function () {
+        var rendered = parser.parse(this.value);
+        $("#rendered").html(rendered);
+    });
+
+    $("#pdf-btn").on('click', function () {
+        var self = $("#pdf-btn");
+        self.addClass("disabled");
+        self.text("converting");
+        $.ajax({
+            url: "/lab/resumark/html-pdf",
+            type: "POST",
+//            dataType: "application/json",
+            data: {html: $("#rendered").html()},
+            success: function (res) {
+                $("#download-btn").prop("href", res.url);
+                $("#download-btn").removeClass("disabled");
+                console.log(res);
+            },
+            error: function (res, ts, et) {
+                console.error(et);
+            },
+            complete: ()=>{
+                self.removeClass("disabled");
+                self.text("pdf");
+            }
+        })
+
+    });
+
+    $("#drag").on({
+        mousedown: function (e) {
+            var el = $("#tool");
+            var os = el.offset();
+            var dy = e.pageY - os.top;
+            $(document).on('mousemove.drag', function (e) {
+                el.offset({top: e.pageY - dy});
+            });
+        },
+        mouseup: function (e) {
+            $(document).off('mousemove.drag');
+        }
+    });
+
+    var visible = true;
+    $("#disappear").on({
+        click: function () {
+            visible = !visible;
+            if(visible){
+                $("#input").css("visibility", "visible");
+            }else {
+                $("#input").css("visibility", "hidden");
+            }
+        }
+    });
+
+    $(function () {
+        $("#input").val(content);
+        var rendered = parser.parse(content);
+        $("#rendered").html(rendered);
+    })
+</script>
+
+</body>
+</html>

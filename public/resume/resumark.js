@@ -255,39 +255,44 @@ ${rootContent}
                     h3 {
                         margin-bottom: 20px;
                         margin-top: 10px;
-                        font-size: 36pt;
+                        font-size: 38pt;
                     }
 
                     h4 {
                         margin-bottom: 10px;
                         margin-top: 10px;
-                        font-size: 30pt;
+                        font-size: 34pt;
                     }
 
                     h5 {
                         margin-bottom: 10px;
                         margin-top: 10px;
-                        font-size: 28pt;
+                        font-size: 30pt;
                     }
 
                     h6 {
                         margin-bottom: 10px;
                         margin-top: 10px;
-                        font-size: 24pt;
+                        font-size: 26pt;
                     }
 
                     blockquote {
                         font-size: 22pt;
-                        border-left: #8157ff solid 3pt;
+                        line-height: 30pt;
+                        border-left: #189d99 solid 10pt;
                         background-color: rgba(100, 100, 100, .1);
                         font-style: italic;
-                        padding: 5pt;
+                        padding: 10pt 25pt;
                         word-break: break-all;
+                        margin: 2pt 0;
                     }
 
                     p {
                         word-break: break-all;
-                        font-size: 18pt;
+                        font-size: 20pt;
+                        line-height: 28pt;
+                        margin: 0;
+                        padding: 0 0 5pt 0;
                     }
 
                     .line-through {
@@ -304,13 +309,15 @@ ${rootContent}
 
                     .ability-name {
                         position: relative;
-
+                        font-size: 24pt;
+                        font-weight: bolder;
                     }
 
                     .ability-remark {
                         position: absolute;
                         right: 0;
                         text-align: right;
+                        font-size: 22pt;
                     }
 
                     .measure {
@@ -337,6 +344,7 @@ ${rootContent}
                         padding: 5pt 10pt;
                         border-radius: 5px;
                         box-shadow: 0 1pt 5pt darkgrey;
+                        margin: 0;
                     }
                 </style>
             `
@@ -460,8 +468,8 @@ ${rootContent}
             var html =
                 `<div class="ability">
                         <div>
-                            <span class="ability-name" style="font-size: 16pt">${this.ability}</span>
-                            <span class="ability-remark" style="font-size: 14pt;">${this.remark}</span>
+                            <span class="ability-name">${this.ability}</span>
+                            <span class="ability-remark">${this.remark}</span>
                         </div>
                         <div class="measure">
                             <div role="progressbar" class="measurebar" style="
