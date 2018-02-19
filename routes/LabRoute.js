@@ -50,20 +50,20 @@ router.post('/resumark/html-pdf', function (req, res) {
         }
     };
     let pdfName = "ip"+ip.replace(/:/g,"-")+".pdf";
-    let pdfPath = "../public/downloads/resumark/"+pdfName;
+    let pdfPath = __dirname+"/../public/downloads/resumark/"+pdfName;
 
     // extremely ugly
     if(fs.existsSync(pdfPath)){
         fs.unlink(pdfPath, function () {
             pdf.create(html, conf).toFile(pdfPath, function(err, response){
-                console.log(response);
+                // console.log(response);
                 if(err) res.json({error: err});
                 else res.json({url: "/downloads/resumark/"+pdfName});
             });
         })
     }else{
         pdf.create(html, conf).toFile(pdfPath, function(err, response){
-            console.log(response);
+            // console.log(response);
             if(err) res.json({error: err});
             else res.json({url: "/downloads/resumark/"+pdfName});
         });
