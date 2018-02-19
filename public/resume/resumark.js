@@ -230,7 +230,7 @@ ${rootContent}
 
                     #rendered {
 
-                        font-size: 18pt;
+                        /*font-size: 18pt;*/
                         font-family: "Microsoft YaHei", 'SimHei', serif;
                     }
 
@@ -239,10 +239,17 @@ ${rootContent}
                         color: #13174c;
                         font-weight: bolder;
                     }
+                    
+                    hr{
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                        border: 0;
+                        border-top: 1px solid #eee;
+                    }
 
                     h1 {
-                        font-size: 96px;
-                        margin-bottom: 20px;
+                        font-size: 40pt;
+                        margin-bottom: 10px;
                         margin-top: 10px;
                         /*font-size: 72pt;*/
                     }
@@ -250,50 +257,51 @@ ${rootContent}
                     h2 {
                         margin-bottom: 20px;
                         margin-top: 10px;
-                        font-size: 54pt;
+                        font-size: 36pt;
                     }
 
                     h3 {
                         margin-bottom: 20px;
                         margin-top: 10px;
-                        font-size: 38pt;
+                        font-size: 24pt;
                     }
 
                     h4 {
                         margin-bottom: 10px;
                         margin-top: 10px;
-                        font-size: 34pt;
+                        font-size: 20pt;
                     }
 
                     h5 {
                         margin-bottom: 10px;
                         margin-top: 10px;
-                        font-size: 30pt;
+                        font-size: 16pt;
                     }
 
                     h6 {
                         margin-bottom: 10px;
                         margin-top: 10px;
-                        font-size: 26pt;
+                        font-size: 14pt;
                     }
 
                     blockquote {
-                        font-size: 22pt;
+                        font-size: 11pt;
                         line-height: 30pt;
                         border-left: #189d99 solid 10pt;
                         background-color: rgba(100, 100, 100, .1);
                         font-style: italic;
-                        padding: 10pt 25pt;
+                        padding: 5pt 5pt;
                         word-break: break-all;
                         margin: 2pt 0;
                     }
 
                     p {
+                        /*text-indent: 2;*/
                         word-break: break-all;
-                        font-size: 20pt;
-                        line-height: 28pt;
+                        font-size: 10pt;
+                        /*line-height: 16pt;*/
                         margin: 0;
-                        padding: 0 0 5pt 0;
+                        padding: 0 0 2pt 0;
                     }
 
                     .line-through {
@@ -310,7 +318,7 @@ ${rootContent}
 
                     .ability-name {
                         position: relative;
-                        font-size: 24pt;
+                        font-size: 11pt;
                         font-weight: bolder;
                     }
 
@@ -318,12 +326,12 @@ ${rootContent}
                         position: absolute;
                         right: 0;
                         text-align: right;
-                        font-size: 22pt;
+                        font-size: 10pt;
                     }
 
                     .measure {
-                        height: 10pt;
-                        margin-bottom: 20pt;
+                        height: 6pt;
+                        margin-bottom: 10pt;
                         overflow: hidden;
                         background-color: #f5f5f5;
                         border-radius: 4px;
@@ -342,7 +350,7 @@ ${rootContent}
                     }
 
                     .panel {
-                        padding: 5pt 10pt;
+                        padding: 2pt 10pt;
                         border-radius: 5px;
                         box-shadow: 0 1pt 5pt darkgrey;
                         margin: 0;

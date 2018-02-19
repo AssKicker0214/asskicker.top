@@ -11,7 +11,8 @@
 </head>
 <body>
 <div style="background-color: lightgray">
-    <div id="rendered" style="zoom: 0.55;overflow:hidden; width: 1600px; height: 2263px; background-color: snow; margin: 0 auto"></div>
+    <div id="rendered" style="overflow:hidden; width: 210mm; height: 297mm; background-color: snow; margin: 0 auto"></div>
+    <!--<div id="rendered" style="zoom: 0.55;overflow:hidden; width: 1600px; height: 2263px; background-color: snow; margin: 0 auto"></div>-->
 </div>
 <div id="tool" class="row" style="height: 20vh; position: fixed; bottom: 0; width: 100%; background-color: transparent">
     <textarea class="col-xs-11" id="input" style="height: 100%;"></textarea>
@@ -26,42 +27,39 @@
 </div>
 <script>
     var content = `; portrait
-![pipboy](http://101.132.40.25/resources/images/pip-boy/pip-boy-1.jpg)200x220
+![pipboy](http://101.132.40.25/resources/images/pip-boy/pip-boy-1.jpg)110x120
 ; north
 # 乔洪波
 **手机**：17372242473          \\t\\t\\t\\t\\t\\s **Q\\sQ**：121584565 \\t\\t\\t\\t\\s **个人主页**：[asskicker.top](http://101.132.40.25/welcome)
 **邮箱**：121584565@163.com      \\t\\t **微信**：17372242473
 ; west
-### 基本信息
+#### 基本信息
 ---
 \`\`\`
-**性别**：男       \\t\\t\\t\\t**年龄**： 23 \\t\\t\\t\\t**所在地**：南京
+**性别**：男       \\t\\t\\t**年龄**： 23 \\t\\t\\t**所在地**：南京
 \`\`\`
 
 **自我介绍**：I'm a coder, and I love coding. 我没有过早的给自己定位为一个Java程序员，或者python程序员，或者其他什么。我希望成为一个博学的人（就像阮一峰老师那样）。所以我涉猎广泛，在**ML**、**NLP**、**CloudComputing**、**Web开发**（全栈）都有不少的实践经历。
 **软实力**：我具有一定**科研能力**，流利阅读各类英文文献，目前正在参与南京大学《操作系统教程》新版本的修订工作，负责云计算章节的新内容编写。
  我具备完全的**软件工程意识**，编写高质量的代码也是我恪守的准则。同时，我也熟悉软件架构、需求和各种设计模式。
-
-### 教育经历
+#### 教育经历
 ---
-> 2013-2017 \\s\\s\\s\\t **南京大学·软件学院** \\t\\t 学士
-> 2017-至今 \\t\\t **南京大学·软件学院** \\t\\t 硕士
+> 2013-2017 \\s\\s\\s **南京大学·软件学院** \\t 学士
+> 2017-至今 \\t **南京大学·软件学院** \\t 硕士
 
 **擅长课程**：DataMining、云计算、软件工程与计算
 **CET4**, **CET6**: 586, 540
 研究生入学考试时专业课第二，复试第五
-
-### 拿手好戏
+#### 拿手好戏
 ---
 [python]===_
 [javascript]====_(+nodejs)
 [mongodb]===__
 [spark]=_(+hadoop)
 [java]===_
-[php]=_
 [linux]====__
 ; east
-### 我的作品
+#### 我的作品
 ---
 在我的github仓库（包括Organization仓库）中有超过20个项目，以下是其中的一部分。
 \`\`\`
@@ -75,9 +73,7 @@
 **云计算实践**
 使用多台主机搭建Hadoop, Mongodb, Spark集群。使用200万条京东评论作为数据源，分别进行了**流处理**、**图计算**、**分类&聚类**。
 图计算的中，我带领组员使用图计算(Graphx)进行了中文分词的试验，比较有意思。分词结果可以在[这里查看](http://101.132.40.25/CloudComputing/CompareResult.txt)。其中‘jieba’和'boson'是现阶段较成熟的分词工具的分词结果。
-*这个分词思路有比较大的研究潜力，前不久给它增加了可视化效果并将服务迁移到学院内服务器，以作进一步研究*
-这里是 [github链接](https://github.com/NJUSE17/ChineseTokenizerService)
-
+*这个分词思路有比较大的研究潜力，前不久给它增加了可视化效果并将服务迁移到学院内服务器，以作进一步研究。*这里是 [github链接](https://github.com/NJUSE17/ChineseTokenizerService)
 \`\`\`
 
 \`\`\`
@@ -85,19 +81,17 @@
 **法条推荐**：本科毕设，NLP和ML的“入坑”项目：根据案件的文字描述，推荐出适用的法律条文。主要运用了*词袋模型+tfidf+朴素贝叶斯分类器*。这里是 [github链接](https://github.com/AssKicker0214/law_forecast.git)
 *另外，我还有一些小规模的实践*：
 **微博语义扩充**：使用维基百科来丰富短文本的语义。
-**DIY决策树**：不依赖机器学习库，使用原生python制作决策树，进行“蘑菇是否有毒”的分类（数据来自Kaggle），并取得100%正确的分类效果
+**DIY决策树**：不依赖机器学习库，使用原生python制作决策树，进行“蘑菇是否有毒”的分类
 \`\`\`
-
-### 期望
+#### 期望
 · 我希望一份有**挑战性**的工作，可以从**有经验的前辈**那里学习新的知识；
 · 我喜欢**自由的环境**。~~这也许就是为什么我热衷于动态语言和非关系型数据库。~~希望有空余时间学习其他领域的知识。
 ; south
 ---
-##### asskicker.top
+###### asskicker.top
 Powered by **resumark**
 2018-02-18
-
-    `
+         `
 </script>
 <script>
     var parser = resumark.parser;
@@ -115,7 +109,8 @@ Powered by **resumark**
             url: "/lab/resumark/html-pdf",
             type: "POST",
 //            dataType: "application/json",
-            data: {html: $("#rendered").html()},
+//            data: {html: $("#rendered").html()},
+            data: {html: document.getElementById("rendered").outerHTML},
             success: function (res) {
                 $("#download-btn").prop("href", res.url);
                 $("#download-btn").removeClass("disabled");
