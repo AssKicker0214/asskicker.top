@@ -14,7 +14,7 @@ function BorderLayout() {
         var portrait = hint?"portrait":this.joint(this.portrait);
 
         return `<div>
-                    <div style="padding: 5pt 10pt; background-color: #1c9aa0; color: black;overflow: hidden;">
+                    <div style="padding: 5pt 10pt; background-color: #16aeb5; color: black;overflow: hidden;">
                         <div style="float:left;">${portrait}</div>
                         <div style="float:left; padding-left: 20pt;">${northContent}</div>
                         

@@ -35,7 +35,8 @@ var resumark = {};
         },
 
         multiline: {
-            panel: /(^|\n)```\n([^(:?```)]*)```($|\n)/g,
+            panel: /(^|\n)```\n([^`]*)```($|\n)/g,
+            // panel: /(^|\n)```\n([^(:?```)]*)```($|\n)/g,
         }
     };
 
@@ -363,7 +364,7 @@ ${rootContent}
                 .replace(rules.inline.lineThrough, "<span class='line-through'>$1</span>")
                 .replace(rules.inline.lineUnder, "<span class='line-under'>$1</span>")
                 .replace(rules.inline.image, "<img src='$2' alt='$1' width='$3' height='$4'>")
-                .replace(rules.inline.link, "<a href='$2'>$1</a>")
+                .replace(rules.inline.link, "<a href='$2' target='_blank'>$1</a>")
                 .replace(rules.inline.tab, "&nbsp;&nbsp;&nbsp;&nbsp;")
                 .replace(rules.inline.space, "&nbsp;")
             return rendered;

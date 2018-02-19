@@ -57,13 +57,15 @@ router.post('/resumark/html-pdf', function (req, res) {
         fs.unlink(pdfPath, function () {
             pdf.create(html, conf).toFile(pdfPath, function(err, response){
                 // console.log(response.filename);
-                res.json({url: "/downloads/resumark/"+pdfName});
+                if(err) res.json({error: err});
+                else res.json({url: "/downloads/resumark/"+pdfName});
             });
         })
     }else{
         pdf.create(html, conf).toFile(pdfPath, function(err, response){
             // console.log(response.filename);
-            res.json({url: "/downloads/resumark/"+pdfName});
+            if(err) res.json({error: err});
+            else res.json({url: "/downloads/resumark/"+pdfName});
         });
     }
     // if(fs.existsSync(pdfPath)){
