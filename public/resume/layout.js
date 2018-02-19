@@ -20,8 +20,8 @@ function BorderLayout() {
                         
                     </div>
                     <div style="overflow:hidden;">
-                        <div style="padding: 5pt 10pt;position: relative;float:left;width: 48%;">${westContent}</div>
-                        <div style="padding: 5pt 10pt;position: relative;float:left;width: 48%;">${eastContent}</div>
+                        <div style="padding: 5pt 10pt;position: relative;float:left;width: 46%;">${westContent}</div>
+                        <div style="padding: 5pt 10pt;position: relative;float:left;width: 46%;">${eastContent}</div>
                     </div>
                     <div style="padding: 5pt 10pt; background-color: #1c9aa0; color: snow">${southContent}</div>
 </div>`
