@@ -11,7 +11,7 @@
 </head>
 <body>
 <div style="background-color: lightgray">
-    <div id="rendered" style="overflow:hidden; width: 210mm; height: 297mm; background-color: snow; margin: 0 auto"></div>
+    <div id="rendered" style="zoom:1; overflow:hidden; width: 210mm; height: 297mm; background-color: snow; margin: 0 auto"></div>
     <!--<div id="rendered" style="zoom: 0.55;overflow:hidden; width: 1600px; height: 2263px; background-color: snow; margin: 0 auto"></div>-->
 </div>
 <div id="tool" class="row" style="height: 20vh; position: fixed; bottom: 0; width: 100%; background-color: transparent">
@@ -72,7 +72,7 @@
 \`\`\`
 **云计算实践**
 使用多台主机搭建Hadoop, Mongodb, Spark集群。使用200万条京东评论作为数据源，分别进行了**流处理**、**图计算**、**分类&聚类**。
-图计算的中，我带领组员使用图计算(Graphx)进行了中文分词的试验，比较有意思。分词结果可以在[这里查看](http://101.132.40.25/CloudComputing/CompareResult.txt)。其中‘jieba’和'boson'是现阶段较成熟的分词工具的分词结果。
+图计算的实践中，我带领组员使用图计算(Graphx)进行了中文分词的试验，比较有意思。分词结果可以在[这里查看](http://101.132.40.25/CloudComputing/CompareResult.txt)。其中‘jieba’和'boson'是现阶段较成熟的分词工具的分词结果。
 *这个分词思路有比较大的研究潜力，前不久给它增加了可视化效果并将服务迁移到学院内服务器，以作进一步研究。*这里是 [github链接](https://github.com/NJUSE17/ChineseTokenizerService)
 \`\`\`
 
@@ -105,12 +105,13 @@ Powered by **resumark**
         var self = $("#pdf-btn");
         self.addClass("disabled");
         self.text("converting");
+        var zoomedHtml = document.getElementById("rendered").outerHTML.replace(/zoom: ?1/g, "zoom: 0.73");
         $.ajax({
             url: "/lab/resumark/html-pdf",
             type: "POST",
 //            dataType: "application/json",
 //            data: {html: $("#rendered").html()},
-            data: {html: document.getElementById("rendered").outerHTML},
+            data: {html: zoomedHtml},
             success: function (res) {
                 $("#download-btn").prop("href", res.url);
                 $("#download-btn").removeClass("disabled");
