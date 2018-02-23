@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 22px;">
+<head>
+    <meta charset="UTF-8">
+    <title>editor</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+    <script src="/lib/jquery/dist/jquery.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/resume/resumark.js"></script>
+    <script src="/resume/layout.js"></script>
+</head>
+<body>
+<div style="background-color: lightgray">
+    <div id="rendered" style="zoom:1; overflow:hidden; width: 210mm; height: 297mm; background-color: snow; margin: 0 auto"></div>
+    <!--<div id="rendered" style="zoom: 0.55;overflow:hidden; width: 1600px; height: 2263px; background-color: snow; margin: 0 auto"></div>-->
+</div>
+<div id="tool" class="row" style="height: 20vh; position: fixed; bottom: 0; width: 100%; background-color: transparent">
+    <textarea class="col-xs-11" id="input" style="height: 100%;"></textarea>
+    <div class="col-xs-1" style="height: 100%; padding: 0;">
+        <div id="drag" style="height: 50%; text-align: center; background-color: #2d8f6f">DRAG</div>
+        <div id="disappear" style="height: 50%; text-align: center; background-color: #0C9A9A">HIDE/SHOW</div>
+    </div>
+</div>
+<div style="position: fixed; top: 20px; right: 20px;">
+    <button id="pdf-btn" class="btn btn-primary">pdf</button>
+    <a id="download-btn" role="button" target="_blank" class="btn btn-primary disabled">download</a>
+</div>
+<script src="/resume/demo.js"></script>
+<script>
+    var parser = resumark.parser;
+    parser.useLayout(BorderLayout);
+    $("#input").on("keyup", function () {
+        var rendered = parser.parse(this.value);
+        $("#rendered").html(rendered);
+    });
+
+    $("#pdf-btn").on('click', function () {
+        var self = $("#pdf-btn");
+        self.addClass("disabled");
+        self.text("converting");
+        var zoomedHtml = document.getElementById("rendered").outerHTML.replace(/zoom: ?1/g, "zoom: 0.73");
+        $.ajax({
+            url: "/lab/resumark/html-pdf",
+            type: "POST",
+//            dataType: "application/json",
+//            data: {html: $("#rendered").html()},
+            data: {html: zoomedHtml},
+            success: function (res) {
+                $("#download-btn").prop("href", res.url);
+                $("#download-btn").removeClass("disabled");
+                console.log(res);
+            },
+            error: function (res, ts, et) {
+                console.error(et);
+            },
+            complete: ()=>{
+                self.removeClass("disabled");
+                self.text("pdf");
+            }
+        })
+
+    });
+
+    $("#drag").on({
+        mousedown: function (e) {
+            var el = $("#tool");
+            var os = el.offset();
+            var dy = e.pageY - os.top;
+            $(document).on('mousemove.drag', function (e) {
+                el.offset({top: e.pageY - dy});
+            });
+        },
+        mouseup: function (e) {
+            $(document).off('mousemove.drag');
+        }
+    });
+
+    var visible = true;
+    $("#disappear").on({
+        click: function () {
+            visible = !visible;
+            if(visible){
+                $("#input").css("visibility", "visible");
+            }else {
+                $("#input").css("visibility", "hidden");
+            }
+        }
+    });
+
+    $(function () {
+        $("#input").val(borderDemo);
+        var rendered = parser.parse(borderDemo);
+        $("#rendered").html(rendered);
+    })
+</script>
+
+</body>
+</html>
