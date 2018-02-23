@@ -77,7 +77,7 @@ class ArticleModel {
         });
     }
 
-    list(author, queryCallback) {
+    list(newest, queryCallback) {
         this.Article.find({}, {'_id': 0}, function (err, docs) {
             if (docs) {
                 let articles = [];

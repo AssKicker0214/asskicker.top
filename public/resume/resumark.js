@@ -287,7 +287,7 @@ ${rootContent}
                     blockquote {
                         font-size: 11pt;
                         line-height: 30pt;
-                        border-left: #189d99 solid 10pt;
+                        border-left: #189d99 solid 5pt;
                         background-color: rgba(100, 100, 100, .1);
                         font-style: italic;
                         padding: 5pt 5pt;
