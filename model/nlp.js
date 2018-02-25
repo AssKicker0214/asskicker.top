@@ -43,11 +43,12 @@ class NLP {
     // natural 对于中文的tfidf计算可能存在错误，这里使用自己的算法
     getTfidf(targetIndex, documents, top) {
         // console.log(documents);
+        this.tfidf = new natural.TfIdf();
         for (let i = 0; i < documents.length; i++) {
             this.tfidf.addDocument(documents[i]);
         }
-        console.log("加入文档=" + this.tfidf.documents.length);
-        console.log("目标文档序号" + targetIndex);
+        // console.log("加入文档=" + this.tfidf.documents.length);
+        // console.log("目标文档序号" + targetIndex);
         // return this.tfidf.documents;
 
         let doc = this.tfidf.documents[targetIndex];

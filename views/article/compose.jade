@@ -21,6 +21,10 @@ block content
         $("#save-btn").on('click', function () {
             var content = controller.getPureTextFromEditor();
             var title = $("#title").val();
+            var tags = [];
+            $(".tag").each(function (item) {
+                tags.push({keyword: $(this).text()});
+            })
             var no = $("#no").val();
             $("#save-btn").addClass("disabled");
             $("#save-btn").text("正在保存...");
@@ -29,7 +33,7 @@ block content
                 url: "/article/save",
                 type: "post",
                 async: true,
-                data: {content:content, title:title, no:no, createTime: JSON.stringify(createTime)},
+                data: {content:content, title:title, no:no, createTime: JSON.stringify(createTime), keywords: JSON.stringify(tags)},
 
                 dataType: "text",
                 success: function (res) {

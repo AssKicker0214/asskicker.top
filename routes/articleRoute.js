@@ -66,6 +66,7 @@ router.get('/nlp/tfidf', function (req, res) {
             // console.log(doc.no+"--"+targetNo);
             if(doc.no === parseInt(targetNo, 10)){
                 targetIndex = i;
+                if(doc.content==="") return res.send([]);
             }
             segmentsArray.push(segments);
         }
