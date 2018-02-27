@@ -42,12 +42,7 @@ router.post('/resumark/html-pdf', function (req, res) {
     let html = req.body.html;
     let conf = {
         format: 'A4',
-        border: {
-            top: '0cm',
-            left: '0px',
-            bottom: '0cm',
-            right: '0cm'
-        }
+        margin: '0'
     };
     let pdfName = "ip"+ip.replace(/:/g,"-")+".pdf";
     let pdfPath = __dirname+"/../public/downloads/resumark/"+pdfName;
