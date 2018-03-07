@@ -19,7 +19,7 @@ Vue.component('news-abstract', {
         <div class="triangle"></div>
         <div class="detail">
             <h4>{{data.title}}</h4>
-            <p>{{data.content}}</p>
+            <pre>{{data.content}}</pre>
         </div>
     </div>
 </article>`,
