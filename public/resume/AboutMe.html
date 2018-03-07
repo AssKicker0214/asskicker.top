@@ -2,7 +2,7 @@
 <html lang="en" style="font-size: 22px;">
 <head>
     <meta charset="UTF-8">
-    <title>editor</title>
+    <title>resumark</title>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
     <script src="/lib/jquery/dist/jquery.js"></script>
     <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -14,17 +14,23 @@
     <div id="rendered" style="zoom:1; overflow:hidden; width: 210mm; height: 297mm; background-color: snow; margin: 0 auto"></div>
     <!--<div id="rendered" style="zoom: 0.55;overflow:hidden; width: 1600px; height: 2263px; background-color: snow; margin: 0 auto"></div>-->
 </div>
-<div id="tool" class="row" style="height: 20vh; position: fixed; bottom: 0; width: 100%; background-color: transparent">
-    <textarea class="col-xs-11" id="input" style="height: 100%;"></textarea>
-    <div class="col-xs-1" style="height: 100%; padding: 0;">
-        <div id="drag" style="height: 50%; text-align: center; background-color: #2d8f6f">DRAG</div>
-        <div id="disappear" style="height: 50%; text-align: center; background-color: #0C9A9A">HIDE/SHOW</div>
-    </div>
+<div id="tool" style="height: 20vh; position: fixed; bottom: 0; width: 100%; background-color: transparent">
+        <div class="input-group">
+            <div id="drag" class="input-group-btn">
+                <button class="btn btn-default" id="disappear" style="text-align: center; background-color: #0C9A9A">HIDE/SHOW</button>
+            </div>
+            <input type="text" id="pdf-name" class="form-control canFade" aria-label="...">
+            <div class="input-group-btn canFade">
+                <button id="pdf-btn" class="btn btn-primary">渲染为pdf</button>
+                <a id="download-btn" role="button" target="_blank" class="btn btn-primary disabled">保存为pdf</a>
+            </div>
+        </div>
+        <textarea id="input" style="height: 100%; width: 100%;"></textarea>
 </div>
-<div style="position: fixed; top: 20px; right: 20px;">
-    <button id="pdf-btn" class="btn btn-primary">pdf</button>
-    <a id="download-btn" role="button" target="_blank" class="btn btn-primary disabled">download</a>
-</div>
+<!--<div style="position: fixed; top: 20px; right: 20px;">-->
+    <!--<button id="pdf-btn" class="btn btn-primary">pdf</button>-->
+    <!--<a id="download-btn" role="button" target="_blank" class="btn btn-primary disabled">download</a>-->
+<!--</div>-->
 <script>
     var content = `; portrait
 ![pipboy](http://101.132.40.25/resources/images/pip-boy/pip-boy-1.jpg)110x120
@@ -104,14 +110,14 @@ Powered by **resumark**
     $("#pdf-btn").on('click', function () {
         var self = $("#pdf-btn");
         self.addClass("disabled");
-        self.text("converting");
+        self.text("上传中...");
         var zoomedHtml = document.getElementById("rendered").outerHTML.replace(/zoom: ?1/g, "zoom: 0.73");
         $.ajax({
             url: "/lab/resumark/html-pdf",
             type: "POST",
 //            dataType: "application/json",
 //            data: {html: $("#rendered").html()},
-            data: {html: zoomedHtml},
+            data: {html: zoomedHtml, name: $("#pdf-name").val()},
             success: function (res) {
                 $("#download-btn").prop("href", res.url);
                 $("#download-btn").removeClass("disabled");
@@ -122,7 +128,7 @@ Powered by **resumark**
             },
             complete: ()=>{
                 self.removeClass("disabled");
-                self.text("pdf");
+                self.text("渲染为pdf");
             }
         })
 
@@ -148,8 +154,10 @@ Powered by **resumark**
             visible = !visible;
             if(visible){
                 $("#input").css("visibility", "visible");
+                $(".canFade").css("opacity", "1")
             }else {
                 $("#input").css("visibility", "hidden");
+                $(".canFade").css("opacity", "0.3")
             }
         }
     });

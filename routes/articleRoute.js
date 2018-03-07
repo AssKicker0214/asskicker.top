@@ -8,7 +8,7 @@ let nlp = new NLP();
 /* GET home page. */
 router.post('/save', function(req, res, next) {
     let args = req.body;
-    console.log(args);
+    // console.log(args);
     let keywords = {};
     if(args.keywords){
         keywords = JSON.parse(args.keywords);

@@ -227,6 +227,10 @@ ${rootContent}
                         /*font-size: 18pt;*/
                         /*font-family: "Microsoft YaHei", 'SimHei', serif;*/
                     }
+                    
+                    body {
+                        margin: 0;
+                    }
 
                     #rendered {
 
