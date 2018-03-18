@@ -27,6 +27,11 @@
     height: 100%;
 }
 
+#preview img{
+    margin: 0 10%;
+    width: 80%;
+}
+
 #wrapper{
     height: calc(100vh - var(--tool-height));
     margin-top: var(--tool-height);
