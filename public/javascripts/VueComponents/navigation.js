@@ -37,6 +37,12 @@ var nav = new Vue({
         },
         likeCnt: "?"
     },
+    
+    computed: {
+        text: function () {
+            return this.isVoted?'Thanks!': 'Like it!';
+        }  
+    },
 
     methods: {
         likeClick: function () {
@@ -48,8 +54,9 @@ var nav = new Vue({
                     url: "/i-like-it",
                     type: 'post',
                     success: function (res) {
+                        if(!res['liked'])
+                            self.likeCnt = res['like-cnt'];
                         self.isVoted = true;
-                        self.likeCnt = res['like-cnt'];
                     },
                     error: function (res) {
                         console.error("投票时发生错误")
@@ -65,6 +72,7 @@ var nav = new Vue({
                 type: "get",
                 success: function (res) {
                     self.likeCnt = res.likeCnt;
+                    self.isVoted = res.liked;
                 }
             })
         },

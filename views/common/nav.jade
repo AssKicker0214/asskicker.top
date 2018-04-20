@@ -16,7 +16,7 @@ nav(class="my-nav" id="my-nav" xmlns:v-on="http://www.w3.org/1999/xhtml")
         li(:class="{active: items.Me}")
             .big 我
             .small Me
-    #like(:class="[isVoted? 'voted' : 'unvoted']" v-on:click="likeClick") Like it!&nbsp;
+    #like(:class="[isVoted? 'voted' : 'unvoted']" v-on:click="likeClick") {{text}}&nbsp;
         span(:class="[isVoted? 'glyphicon glyphicon-heart':'glyphicon glyphicon-heart-empty']")
         #like-cnt + {{likeCnt}}
 script(src="/javascripts/VueComponents/navigation.js")

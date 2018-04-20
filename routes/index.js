@@ -22,19 +22,21 @@ router.get('/test/next', function (req, res, next) {
 });
 
 router.post('/i-like-it', function (req, res) {
-    if (req.cookie) {
-
+    if (req.cookies.liked) {
+        res.json({liked: true});
+    }else{
+        let ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
+        iputl.like(ip, function (cnt) {
+            res.cookie("liked", "true");
+            res.json({'like-cnt': cnt});
+        });
     }
-    let ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
-    iputl.like(ip, function (cnt) {
-        console.log(req.ip);
-        res.json({'like-cnt': cnt});
-    });
 });
 
 router.get('/like-cnt', function (req, res) {
     iputl.countLike(function (cnt) {
-        res.json({likeCnt: cnt})
+        let liked = req.cookies.liked === "true";
+        res.json({likeCnt: cnt, liked: liked});
     });
 });
 
