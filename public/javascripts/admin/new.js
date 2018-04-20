@@ -48,7 +48,7 @@ var selected = new Vue({
         },
         date: {
             formatted: "",
-            timeStamp: new Date().getTime()
+            timeStamp: null
         },
         content: "",
         disableSave: false,
@@ -83,13 +83,14 @@ var selected = new Vue({
             this.disableRemove = this.no === null;
         },
         save: function () {
+            // console.log(this.timeStamp);
             var newsObj = {
                 no: this.no || null,
                 title: this.title,
                 abstract: this.content,
                 linkNo: this.linkTo.no,
                 type: this.linkTo.type,
-                time: this.timeStamp,
+                time: this.date.timeStamp || new Date().getTime(),
                 posterName: this.imgName
             };
             $.ajax({
@@ -169,7 +170,7 @@ var selected = new Vue({
         autoclose: true,
         todayHighlight: true
     }).on('changeDate', function (e) {
-        // console.log(e);
+        console.log(e.date.getTime());
         selected.date.timeStamp = e.date.getTime();
     });
 })();
