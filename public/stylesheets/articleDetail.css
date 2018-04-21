@@ -25,6 +25,12 @@
         padding: 10px 2%;
     }
 
+    #article>img{
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+    }
+    
     .handle{
         width: 10vw;
         text-align: center;
@@ -69,6 +75,12 @@
     article {
         width: 70%;
         padding: 10px 2%;
+    }
+
+    #article>img{
+        display: block;
+        width: 80%;
+        margin: 0 auto;
     }
     .drawer{
         padding-top: 20px;
