@@ -5,6 +5,30 @@ body{
     background: linear-gradient(to bottom right, #92d2f7, #c5a98c); /* 标准的语法 */
 }
 
+#editor{
+    height: 20vh;
+    width: 100%;
+    overflow: auto;
+    background-color: #372a44db;
+    color: wheat;
+    padding: 5px;
+}
+
+#previewer{
+    min-height: 40vh;
+    width: 100%;
+    overflow: auto;
+    /*background-color: #bfbcc7bf;*/
+    /*padding: 1% 30px;*/
+}
+
+#previewer pre{
+    background-color: #403730de;
+    color: whitesmoke;
+    font-size: 16px;
+
+}
+
 html{
     min-height: 100%;
 }

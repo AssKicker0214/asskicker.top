@@ -3,10 +3,13 @@ extends ../layout
 block specialRef
     link(rel='stylesheet', href='/stylesheets/welcome.css')
     link(rel='stylesheet', href='/stylesheets/VueComponents/NewsAbstract.css')
+    link(rel='stylesheet', href='/lib/highlightjs/styles/tomorrow-night-eighties.css')
     //script(src="/lib/titanic/titanic.min.js")
     //script(src="/lib/titanic/bodymovin.min.js")
     //script(src="https://unpkg.com/vue")
     script(src="/lib/vue/vue.js")
+    script(src='/lib/marked/marked.min.js')
+    script(src='/lib/highlightjs/highlight.pack.js')
     script(src="/lib/particles.min.js")
 
 block content
@@ -30,8 +33,32 @@ block content
 
     .row.index-content
         .col-md-5
-            #profile
-                #caption Constructing...
+            //#profile
+            //    #caption Constructing...
+            //#container
+            //    #previewer
+            //    #editor(contenteditable="true")
+            #container.current
+                #previewer
+                #editor.current(contenteditable="true")
+                    #line-1.editor-line(ondblclick="window.location.hash='line-1-preview';") ``` python
+                    #line-2.editor-line(ondblclick="window.location.hash='line-1-preview';") def welcome(everyone):
+                    #line-3.editor-line(ondblclick="window.location.hash='line-1-preview';") &nbsp;&nbsp;&nbsp;&nbsp;"""
+                    #line-4.editor-line(ondblclick="window.location.hash='line-1-preview';") &nbsp;&nbsp;&nbsp;&nbsp;Greetings!
+                    #line-5.editor-line(ondblclick="window.location.hash='line-1-preview';")
+                        | &nbsp;&nbsp;&nbsp;&nbsp;I'm a graduate student in Nanjing University and it's been a pleasure meeting you.
+                    #line-6.editor-line(ondblclick="window.location.hash='line-1-preview';")
+                        | &nbsp;&nbsp;&nbsp;&nbsp;This is my site on which I'll post something interesting. The site currently is far from perfect and I'm kind of busy these days, but I'll make it better ASAP.
+                    #line-7.editor-line(ondblclick="window.location.hash='line-1-preview';") &nbsp;&nbsp;&nbsp;&nbsp;"""
+                    #line-8.editor-line(ondblclick="window.location.hash='line-1-preview';") &nbsp;&nbsp;&nbsp;&nbsp;me = {
+                    #line-9.editor-line(ondblclick="window.location.hash='line-1-preview';") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'email': '121584565@163.com',
+                    #line-10.editor-line(ondblclick="window.location.hash='line-1-preview';") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'website': 'www.asskicker.top/welcome',
+                    #line-11.editor-line(ondblclick="window.location.hash='line-1-preview';") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'github': 'https://github.com/AssKicker0214'
+                    #line-12.editor-line(ondblclick="window.location.hash='line-1-preview';") &nbsp;&nbsp;&nbsp;&nbsp;}
+                    #line-13.editor-line(ondblclick="window.location.hash='line-1-preview';") &nbsp;&nbsp;&nbsp;&nbsp;return best_regards_to(everyone)
+                    #line-14.editor-line(ondblclick="window.location.hash='line-1-preview';") ```
+                    #line-15.editor-line(ondblclick="window.location.hash='line-15-preview';") > Powered by `MDEditor`, check it out @ [**`My Github`**](https://github.com/AssKicker0214/MDEditor)
+
         .col-md-7
             ul(id='news-list')
                 li( v-for="news in list" )
@@ -44,6 +71,12 @@ block content
 
     script(src='/javascripts/VueComponents/NewsAbstract.js')
     script(src='/javascripts/welcome.js')
+    script(src='/lib/MDEditor.js')
+    script.
+        let editor = new Editor('editor');
+        let previewer = new Previewer('previewer');
+        editor.setPreviewer(previewer);
+        previewer.preview(editor.getSources());
     script.
         //var list = new NewsAbstractFactory();
         //list.getTest();
