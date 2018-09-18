@@ -9,7 +9,8 @@ body{
     height: 20vh;
     width: 100%;
     overflow: auto;
-    background-color: #372a44db;
+    background-color: rgba(55, 42, 68, 0.87);
+    /*background-color: #372a44db;*/
     color: wheat;
     padding: 5px;
 }
@@ -23,7 +24,8 @@ body{
 }
 
 #previewer pre{
-    background-color: #403730de;
+    /*background-color: #403730de;*/
+    background-color: rgba(64, 55, 48, 0.87);
     color: whitesmoke;
     font-size: 16px;
 
